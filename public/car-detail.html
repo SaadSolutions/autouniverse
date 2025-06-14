@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details - Auto Universe Inc. - Paterson, NJ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-white text-gray-900">
+
+    <header class="bg-red-600 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between py-3">
+                <div class="flex items-center mb-2 md:mb-0">
+                    <a href="index.html" class="text-2xl sm:text-3xl font-bold text-white">Auto <span class="text-gray-100">UNIVERSE INC.</span></a>
+                </div>
+                <nav class="flex-grow md:flex-grow-0">
+                    <ul class="flex flex-wrap justify-center md:justify-end space-x-3 sm:space-x-4 text-sm sm:text-base">
+                        <li><a href="index.html" class="hover:text-gray-200 transition duration-300 text-white">Home</a></li>
+                        <li><a href="inventory.html" class="hover:text-gray-200 transition duration-300 text-white">Inventory</a></li>
+                        <li><a href="form.html" class="hover:text-gray-200 transition duration-300 text-white">Financing</a></li>
+                        <li><a href="#" class="hover:text-gray-200 transition duration-300 text-white">Reviews</a></li>
+                        <li><a href="contact.html" class="hover:text-gray-200 transition duration-300 text-white">About Us</a></li>
+                        <li><a href="about.html" class="hover:text-gray-200 transition duration-300 text-white">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="text-xs sm:text-sm text-gray-200 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
+                    <p>(732) 907-8380 - (732) 676-4855</p>
+                    <p>1838 Main St, Paterson, NJ 07503</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Loading State -->
+        <div id="loadingState" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex justify-center items-center">
+                <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-red-600"></div>
+            </div>
+            <p class="text-center mt-4 text-gray-600">Loading car details...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="hidden container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+                <h2 class="text-2xl font-bold text-red-600 mb-4">Car Not Found</h2>
+                <p class="text-gray-600 mb-4">Sorry, we couldn't find the car you're looking for.</p>
+                <a href="inventory.html" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300">
+                    Back to Inventory
+                </a>
+            </div>
+        </div>
+
+        <!-- Car Detail Content -->
+        <div id="carDetailContent" class="hidden container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Breadcrumb -->
+            <nav class="flex mb-6" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="index.html" class="text-gray-700 hover:text-red-600 inline-flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                            </svg>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <a href="inventory.html" class="ml-1 text-gray-700 hover:text-red-600 md:ml-2">Inventory</a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span id="breadcrumbCarName" class="ml-1 text-gray-500 md:ml-2">Car Details</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Image Gallery -->
+                <div class="space-y-4">
+                    <div class="relative">
+                        <img id="mainImage" src="" alt="" class="w-full h-96 object-cover rounded-lg shadow-lg">
+                        <div class="absolute top-4 right-4">
+                            <button id="favoriteBtn" onclick="toggleCarFavorite()" class="bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full shadow-lg transition duration-300">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Thumbnail Gallery -->
+                    <div id="thumbnailGallery" class="grid grid-cols-4 gap-2">
+                        <!-- Thumbnails will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Car Information -->
+                <div class="space-y-6">
+                    <div>
+                        <h1 id="carTitle" class="text-3xl font-bold text-gray-900 mb-2"></h1>
+                        <div class="flex items-center space-x-4 text-sm text-gray-600 mb-4">
+                            <span id="carViews" class="flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="views-count">0</span> views
+                            </span>
+                            <span id="carCondition" class="px-2 py-1 text-xs font-medium rounded-full"></span>
+                        </div>
+                        <div class="text-3xl font-bold text-red-600 mb-6">
+                            $<span id="carPrice"></span>
+                        </div>
+                    </div>
+
+                    <!-- Key Details -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4">Vehicle Details</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span class="font-medium text-gray-600">Year:</span>
+                                <span id="detailYear" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Mileage:</span>
+                                <span id="detailMileage" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Body Style:</span>
+                                <span id="detailBodyStyle" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Fuel Type:</span>
+                                <span id="detailFuelType" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Transmission:</span>
+                                <span id="detailTransmission" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Drivetrain:</span>
+                                <span id="detailDrivetrain" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Engine:</span>
+                                <span id="detailEngine" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Exterior Color:</span>
+                                <span id="detailExteriorColor" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">Interior Color:</span>
+                                <span id="detailInteriorColor" class="ml-2"></span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">VIN:</span>
+                                <span id="detailVin" class="ml-2 text-xs"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div id="featuresSection" class="hidden">
+                        <h3 class="text-lg font-semibold mb-4">Features</h3>
+                        <div id="featuresList" class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                            <!-- Features will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div id="descriptionSection" class="hidden">
+                        <h3 class="text-lg font-semibold mb-4">Description</h3>
+                        <p id="carDescription" class="text-gray-600 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="space-y-3">
+                        <button onclick="contactDealer()" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition duration-300">
+                            Contact Dealer
+                        </button>
+                        <a href="form.html" class="block w-full text-center bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-md transition duration-300">
+                            Apply for Financing
+                        </a>
+                        <button onclick="shareVehicle()" class="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 rounded-md transition duration-300">
+                            Share Vehicle
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar Vehicles -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Similar Vehicles</h2>
+                <div id="similarVehicles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Similar vehicles will be populated here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <button class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg shadow-lg hover:bg-red-700 transition duration-300 z-50 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M18 0H2C.9 0 .01.9.01 2L0 20l4-4h14c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h14v10zM5 9h10V7H5v2zm0-3h10V5H5v2z"/>
+        </svg>
+        TEXT US
+    </button>
+
+    <script src="car-detail.js"></script>
+</body>
+</html>

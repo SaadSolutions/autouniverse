@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - Auto Universe Inc. - Paterson, NJ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-white text-gray-900">
+
+    <header class="bg-red-600 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between py-3">
+                <div class="flex items-center mb-2 md:mb-0">
+                    <a href="index.html" class="text-2xl sm:text-3xl font-bold text-white">Auto <span class="text-gray-100">UNIVERSE INC.</span></a>
+                </div>
+                <nav class="flex-grow md:flex-grow-0">
+                    <ul class="flex flex-wrap justify-center md:justify-end space-x-3 sm:space-x-4 text-sm sm:text-base">
+                        <li><a href="index.html" class="hover:text-gray-200 transition duration-300 text-white">Home</a></li>
+                        <li><a href="inventory.html" class="hover:text-gray-200 transition duration-300 text-gray-200 font-semibold">Inventory</a></li>
+                        <li><a href="form.html" class="hover:text-gray-200 transition duration-300 text-white">Financing</a></li>
+                        <li><a href="#" class="hover:text-gray-200 transition duration-300 text-white">Reviews</a></li>
+                        <li><a href="contact.html" class="hover:text-gray-200 transition duration-300 text-white">About Us</a></li>
+                        <li><a href="about.html" class="hover:text-gray-200 transition duration-300 text-white">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="text-xs sm:text-sm text-gray-200 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
+                    <p>(732) 907-8380 - (732) 676-4855</p>
+                    <p>1838 Main St, Paterson, NJ 07503</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 text-center md:text-left">Our Inventory</h1>
+            <div class="flex flex-col md:flex-row gap-8">
+                <aside class="w-full md:w-1/4 lg:w-1/5 bg-gray-50 p-6 rounded-lg shadow-lg h-fit border border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Filters</h2>
+                    <form id="filterForm">
+                        <div class="filter-group mb-4">
+                            <label for="makeFilter" class="block text-sm font-medium mb-1">Make</label>
+                            <input type="text" id="makeFilter" name="make" placeholder="e.g., Honda" class="w-full p-2 rounded-md border">
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="modelFilter" class="block text-sm font-medium mb-1">Model</label>
+                            <input type="text" id="modelFilter" name="model" placeholder="e.g., Accord" class="w-full p-2 rounded-md border">
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="priceRangeFilter" class="block text-sm font-medium mb-1">Max Price</label>
+                            <input type="number" id="priceRangeFilter" name="price" placeholder="e.g., 15000" class="w-full p-2 rounded-md border">
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="bodyStyleFilter" class="block text-sm font-medium mb-1">Body Style</label>
+                            <select id="bodyStyleFilter" name="bodyStyle" class="w-full p-2 rounded-md border">
+                                <option value="">All</option>
+                                <option value="Sedan">Sedan</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Truck">Truck</option>
+                                <option value="Hatchback">Hatchback</option>
+                                <option value="Coupe">Coupe</option>
+                            </select>
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="fuelTypeFilter" class="block text-sm font-medium mb-1">Fuel Type</label>
+                            <select id="fuelTypeFilter" name="fuelType" class="w-full p-2 rounded-md border">
+                                <option value="">All</option>
+                                <option value="Gasoline">Gasoline</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Electric">Electric</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="applyFilters()" class="w-full btn-search text-white font-semibold py-2 px-4 rounded-md">Search</button>
+                         <button type="button" onclick="resetFilters()" class="w-full mt-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300">Reset Filters</button>
+                    </form>
+                </aside>
+
+                <section class="w-full md:w-3/4 lg:w-4/5">
+                    <div id="carListings" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        </div>
+                     <div id="noResultsMessage" class="hidden text-center text-gray-600 py-10">
+                        <p class="text-xl">No cars match your current filters.</p>
+                        <p>Try adjusting your search criteria or reset filters.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <button class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg shadow-lg hover:bg-red-700 transition duration-300 z-50 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M18 0H2C.9 0 .01.9.01 2L0 20l4-4h14c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h14v10zM5 9h10V7H5v2zm0-3h10V5H5v2z"/>
+        </svg>
+        TEXT US
+    </button>
+
+    <script src="code.js"></script>
+</body>
+</html>

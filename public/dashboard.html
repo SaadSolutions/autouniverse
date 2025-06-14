@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealer Dashboard - Auto Universe Inc.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .sidebar-transition { transition: transform 0.3s ease-in-out; }
+        .modal-overlay { backdrop-filter: blur(4px); }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Dealer Login</h2>
+                <p class="text-gray-600 mt-2">Access your Auto Universe dashboard</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input type="email" id="email" name="email" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" id="password" name="password" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-300">
+                    <span class="login-btn-text">Login</span>
+                    <span class="login-spinner hidden">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>Logging in...
+                    </span>
+                </button>
+            </form>
+            
+            <div id="loginError" class="hidden mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            </div>
+            
+            <div class="mt-6 text-center text-sm text-gray-600">
+                <p>Demo Credentials:</p>
+                <p><strong>Admin:</strong> admin@autouniverse.com / admin123</p>
+                <p><strong>Dealer:</strong> dealer@autouniverse.com / dealer123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="flex items-center">
+                    <button id="sidebarToggle" class="md:hidden mr-4 text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h1 class="text-2xl font-bold text-red-600">Auto Universe Dashboard</h1>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span id="dealerName" class="text-gray-700"></span>
+                    <button id="logoutBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-300">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="bg-gray-800 text-white w-64 min-h-screen sidebar-transition md:translate-x-0 -translate-x-full fixed md:relative z-40">
+                <div class="p-6">
+                    <div class="flex items-center mb-8">
+                        <i class="fas fa-car text-red-500 text-2xl mr-3"></i>
+                        <span class="text-lg font-semibold">Management</span>
+                    </div>
+                    
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" data-tab="overview" class="nav-link flex items-center px-4 py-3 rounded-lg bg-red-600">
+                                <i class="fas fa-tachometer-alt mr-3"></i>Overview
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tab="cars" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700">
+                                <i class="fas fa-car mr-3"></i>My Cars
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tab="add-car" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700">
+                                <i class="fas fa-plus mr-3"></i>Add Car
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tab="applications" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700">
+                                <i class="fas fa-file-alt mr-3"></i>Loan Applications
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Overlay for mobile -->
+            <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"></div>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-6">
+                <!-- Overview Tab -->
+                <div id="overview-tab" class="tab-content">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Dashboard Overview</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="p-2 bg-blue-500 rounded-lg">
+                                    <i class="fas fa-car text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-600">Total Cars</p>
+                                    <p id="totalCars" class="text-2xl font-bold text-gray-900">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="p-2 bg-green-500 rounded-lg">
+                                    <i class="fas fa-check-circle text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-600">Available</p>
+                                    <p id="availableCars" class="text-2xl font-bold text-gray-900">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="p-2 bg-yellow-500 rounded-lg">
+                                    <i class="fas fa-file-alt text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-600">Applications</p>
+                                    <p id="totalApplications" class="text-2xl font-bold text-gray-900">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cars Tab -->
+                <div id="cars-tab" class="tab-content hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">My Cars</h2>
+                        <button id="addCarBtn" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300">
+                            <i class="fas fa-plus mr-2"></i>Add New Car
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div id="carsTable" class="overflow-x-auto">
+                            <!-- Cars will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Car Tab -->
+                <div id="add-car-tab" class="tab-content hidden">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Add New Car</h2>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <form id="addCarForm" enctype="multipart/form-data">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Basic Information -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Make *</label>
+                                    <input type="text" name="make" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Model *</label>
+                                    <input type="text" name="model" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Year *</label>
+                                    <input type="number" name="year" min="1900" max="2026" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Mileage *</label>
+                                    <input type="number" name="mileage" min="0" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Price *</label>
+                                    <input type="number" name="price" min="0" step="0.01" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Body Style *</label>
+                                    <select name="bodyStyle" required
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option value="">Select Body Style</option>
+                                        <option value="Sedan">Sedan</option>
+                                        <option value="SUV">SUV</option>
+                                        <option value="Truck">Truck</option>
+                                        <option value="Hatchback">Hatchback</option>
+                                        <option value="Coupe">Coupe</option>
+                                        <option value="Convertible">Convertible</option>
+                                        <option value="Wagon">Wagon</option>
+                                        <option value="Van">Van</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Fuel Type *</label>
+                                    <select name="fuelType" required
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option value="">Select Fuel Type</option>
+                                        <option value="Gasoline">Gasoline</option>
+                                        <option value="Diesel">Diesel</option>
+                                        <option value="Hybrid">Hybrid</option>
+                                        <option value="Electric">Electric</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Transmission</label>
+                                    <select name="transmission"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option value="Automatic">Automatic</option>
+                                        <option value="Manual">Manual</option>
+                                        <option value="CVT">CVT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                <textarea name="description" rows="3"
+                                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                          placeholder="Describe the vehicle's condition, features, and any notable details..."></textarea>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Images</label>
+                                <input type="file" name="images" multiple accept="image/*"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                <p class="text-sm text-gray-500 mt-1">Select up to 10 images (5MB max each)</p>
+                            </div>
+                            
+                            <div class="mt-8 flex justify-end space-x-4">
+                                <button type="button" id="cancelAddCar" 
+                                        class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                    Cancel
+                                </button>
+                                <button type="submit" 
+                                        class="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                                    <span class="add-car-btn-text">Add Car</span>
+                                    <span class="add-car-spinner hidden">
+                                        <i class="fas fa-spinner fa-spin mr-2"></i>Adding...
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Applications Tab -->
+                <div id="applications-tab" class="tab-content hidden">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Loan Applications</h2>
+                    
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div id="applicationsTable" class="overflow-x-auto">
+                            <!-- Applications will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Universe Inc. - Paterson, NJ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Tailwind gray-900 */
+            color: #e2e8f0; /* Tailwind gray-300 */
+        }
+        .hero-bg {
+            background-image: url('2025-Kia-K5_E6_o.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .btn-primary, .btn-search {
+            background-color: #A00000; /* Dark Red */
+            border: 2px solid #800000; /* Darker Red for border */
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover, .btn-search:hover {
+            background-color: #800000; /* Darker Red on hover */
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2d3748; /* Tailwind gray-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #A00000; /* Dark Red */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #800000; /* Darker Red */
+        }
+        .filter-group label {
+            color: #a0aec0; /* Tailwind gray-500 */
+        }
+        .filter-group input, .filter-group select {
+            background-color: #2d3748; /* Tailwind gray-800 */
+            border-color: #4a5568; /* Tailwind gray-700 */
+            color: #e2e8f0; /* Tailwind gray-300 */
+        }
+        .filter-group input::placeholder {
+            color: #718096; /* Tailwind gray-500 */
+        }
+        .car-card {
+            background-color: #2d3748; /* Tailwind gray-800 */
+            border: 1px solid #4a5568; /* Tailwind gray-700 */
+        }
+        .heart-icon {
+            cursor: pointer;
+        }
+        .heart-icon.favorited svg {
+            fill: #e53e3e; /* Tailwind red-600 */
+            stroke: #e53e3e;
+        }
+        .heart-icon svg {
+            stroke: #a0aec0; /* Tailwind gray-500 */
+            fill: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-black bg-opacity-80 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between py-3">
+                <div class="flex items-center mb-2 md:mb-0">
+                    <a href="#" onclick="showPage('homePageContent')" class="text-2xl sm:text-3xl font-bold text-red-600">Auto <span class="text-white">UNIVERSE INC.</span></a>
+                </div>
+                <nav class="flex-grow md:flex-grow-0">
+                    <ul class="flex flex-wrap justify-center md:justify-end space-x-3 sm:space-x-4 text-sm sm:text-base">
+                        <li><a href="#" onclick="showPage('homePageContent')" class="hover:text-red-500 transition duration-300">Home</a></li>
+                        <li><a href="#" onclick="showPage('inventoryPageContent')" class="hover:text-red-500 transition duration-300">Inventory</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition duration-300">Financing</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition duration-300">Reviews</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition duration-300">About Us</a></li>
+                        <li><a href="#" class="hover:text-red-500 transition duration-300">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="text-xs sm:text-sm text-gray-300 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
+                    <p>(732) 907-8380 - (732) 676-4855</p>
+                    <p>1838 Main St, Paterson, NJ 07503</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="homePageContent">
+        <section class="hero-bg h-[calc(100vh-120px)] min-h-[500px] sm:min-h-[600px] md:min-h-[700px] flex items-center justify-end relative text-white">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-right mr-0 md:mr-10 lg:mr-20">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-shadow mb-4">Down Payment As Low As <span class="text-red-500">$499</span></h1>
+                <p class="text-xl sm:text-2xl md:text-3xl text-shadow mb-8">Payments As Low As $75 Weekly</p>
+                <a href="#" onclick="showPage('inventoryPageContent')" class="btn-primary text-white font-semibold py-3 px-8 sm:py-4 sm:px-10 rounded-lg text-lg sm:text-xl hover:bg-red-700 transition duration-300 shadow-lg">
+                    View Inventory
+                </a>
+            </div>
+        </section>
+        <section class="bg-red-700 text-white py-4 sm:py-6 text-center">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-lg sm:text-xl md:text-2xl font-semibold">We Sell Quality - Auto Universe Inc. in Paterson, NJ</p>
+            </div>
+        </section>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-400">
+            <p>More content (featured cars, testimonials, etc.) can be added here.</p>
+        </div>
+    </main>
+
+    <main id="inventoryPageContent" class="hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white mb-6 text-center md:text-left">Our Inventory</h1>
+            <div class="flex flex-col md:flex-row gap-8">
+                <aside class="w-full md:w-1/4 lg:w-1/5 bg-gray-800 p-6 rounded-lg shadow-lg h-fit">
+                    <h2 class="text-xl font-semibold text-white mb-4">Filters</h2>
+                    <form id="filterForm">
+                        <div class="filter-group mb-4">
+                            <label for="makeFilter" class="block text-sm font-medium mb-1">Make</label>
+                            <input type="text" id="makeFilter" name="make" placeholder="e.g., Honda" class="w-full p-2 rounded-md border">
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="modelFilter" class="block text-sm font-medium mb-1">Model</label>
+                            <input type="text" id="modelFilter" name="model" placeholder="e.g., Accord" class="w-full p-2 rounded-md border">
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="priceRangeFilter" class="block text-sm font-medium mb-1">Max Price</label>
+                            <input type="number" id="priceRangeFilter" name="price" placeholder="e.g., 15000" class="w-full p-2 rounded-md border">
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="bodyStyleFilter" class="block text-sm font-medium mb-1">Body Style</label>
+                            <select id="bodyStyleFilter" name="bodyStyle" class="w-full p-2 rounded-md border">
+                                <option value="">All</option>
+                                <option value="Sedan">Sedan</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Truck">Truck</option>
+                                <option value="Hatchback">Hatchback</option>
+                                <option value="Coupe">Coupe</option>
+                            </select>
+                        </div>
+                        <div class="filter-group mb-4">
+                            <label for="fuelTypeFilter" class="block text-sm font-medium mb-1">Fuel Type</label>
+                            <select id="fuelTypeFilter" name="fuelType" class="w-full p-2 rounded-md border">
+                                <option value="">All</option>
+                                <option value="Gasoline">Gasoline</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Electric">Electric</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="applyFilters()" class="w-full btn-search text-white font-semibold py-2 px-4 rounded-md">Search</button>
+                         <button type="button" onclick="resetFilters()" class="w-full mt-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300">Reset Filters</button>
+                    </form>
+                </aside>
+
+                <section class="w-full md:w-3/4 lg:w-4/5">
+                    <div id="carListings" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        </div>
+                     <div id="noResultsMessage" class="hidden text-center text-gray-400 py-10">
+                        <p class="text-xl">No cars match your current filters.</p>
+                        <p>Try adjusting your search criteria or reset filters.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <button class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg shadow-lg hover:bg-red-700 transition duration-300 z-50 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M18 0H2C.9 0 .01.9.01 2L0 20l4-4h14c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h14v10zM5 9h10V7H5v2zm0-3h10V5H5v2z"/>
+        </svg>
+        TEXT US
+    </button>
+
+    <script>
+        // Sample Car Data
+        const allCars = [
+            { id: 1, make: 'Honda', model: 'Accord Sport', year: 2019, mileage: '45k miles', price: 22000, bodyStyle: 'Sedan', fuelType: 'Gasoline', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Honda+Accord', description: 'Sporty and reliable sedan with great fuel economy.' },
+            { id: 2, make: 'Chevrolet', model: 'Impala LT', year: 2018, mileage: '90k miles', price: 18000, bodyStyle: 'Sedan', fuelType: 'Gasoline', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Chevrolet+Impala', description: 'Comfortable full-size sedan with plenty of space.' },
+            { id: 3, make: 'Hyundai', model: 'Tucson SE', year: 2020, mileage: '55k miles', price: 23500, bodyStyle: 'SUV', fuelType: 'Gasoline', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Hyundai+Tucson', description: 'Versatile and stylish compact SUV.' },
+            { id: 4, make: 'Honda', model: 'Civic Sport', year: 2019, mileage: '61k miles', price: 19500, bodyStyle: 'Hatchback', fuelType: 'Gasoline', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Honda+Civic', description: 'Fun-to-drive hatchback with a sporty look.' },
+            { id: 5, make: 'Ford', model: 'F-150 XLT', year: 2017, mileage: '105k miles', price: 28000, bodyStyle: 'Truck', fuelType: 'Gasoline', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Ford+F-150', description: 'Rugged and capable full-size pickup truck.' },
+            { id: 6, make: 'Nissan', model: 'Sentra SV', year: 2020, mileage: '52k miles', price: 17000, bodyStyle: 'Sedan', fuelType: 'Gasoline', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Nissan+Sentra', description: 'Economical and practical compact sedan.' },
+            { id: 7, make: 'Toyota', model: 'RAV4 LE', year: 2018, mileage: '70k miles', price: 24000, bodyStyle: 'SUV', fuelType: 'Hybrid', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Toyota+RAV4', description: 'Popular hybrid SUV known for reliability.' },
+            { id: 8, make: 'BMW', model: '330i', year: 2019, mileage: '50k miles', price: 32000, bodyStyle: 'Sedan', fuelType: 'Gasoline', imageUrl: 'https://placehold.co/600x400/555/FFF?text=BMW+330i', description: 'Luxury sports sedan with engaging performance.' },
+            { id: 9, make: 'Tesla', model: 'Model 3', year: 2021, mileage: '30k miles', price: 38000, bodyStyle: 'Sedan', fuelType: 'Electric', imageUrl: 'https://placehold.co/600x400/555/FFF?text=Tesla+Model+3', description: 'Cutting-edge electric vehicle with impressive range.' },
+        ];
+
+        let currentCars = [...allCars];
+
+        // Function to show/hide pages
+        function showPage(pageId) {
+            document.getElementById('homePageContent').classList.add('hidden');
+            document.getElementById('inventoryPageContent').classList.add('hidden');
+            
+            if (document.getElementById(pageId)) {
+                document.getElementById(pageId).classList.remove('hidden');
+            }
+
+            // If navigating to inventory, render cars
+            if (pageId === 'inventoryPageContent') {
+                renderCarCards(currentCars);
+            }
+            window.scrollTo(0, 0); // Scroll to top on page change
+        }
+
+        // Function to render car cards
+        function renderCarCards(carsToRender) {
+            const carListingsContainer = document.getElementById('carListings');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            carListingsContainer.innerHTML = ''; // Clear existing cards
+
+            if (carsToRender.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+            } else {
+                noResultsMessage.classList.add('hidden');
+                carsToRender.forEach(car => {
+                    const card = `
+                        <div class="car-card rounded-lg shadow-lg overflow-hidden flex flex-col">
+                            <a href="#" onclick="alert('Viewing details for ${car.make} ${car.model} (ID: ${car.id}) - Placeholder')" class="block">
+                                <img src="${car.imageUrl}" alt="${car.make} ${car.model}" class="w-full h-48 object-cover">
+                            </a>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <div class="flex justify-between items-start mb-2">
+                                    <a href="#" onclick="alert('Viewing details for ${car.make} ${car.model} (ID: ${car.id}) - Placeholder')" class="block">
+                                     <h3 class="text-lg font-semibold text-white hover:text-red-400 transition duration-300">${car.year} ${car.make} ${car.model}</h3>
+                                    </a>
+                                    <div class="heart-icon" onclick="toggleFavorite(this, ${car.id})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                                          <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-1">${car.mileage}</p>
+                                <p class="text-xl font-bold text-red-500 mb-3">$${car.price.toLocaleString()}</p>
+                                <p class="text-xs text-gray-400 mb-3 flex-grow">${car.description.substring(0, 70)}...</p>
+                                <a href="#" onclick="alert('Viewing details for ${car.make} ${car.model} (ID: ${car.id}) - Placeholder')" class="mt-auto block w-full text-center bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    carListingsContainer.innerHTML += card;
+                });
+            }
+        }
+
+        // Function to apply filters
+        function applyFilters() {
+            const makeFilter = document.getElementById('makeFilter').value.toLowerCase();
+            const modelFilter = document.getElementById('modelFilter').value.toLowerCase();
+            const priceFilter = parseFloat(document.getElementById('priceRangeFilter').value);
+            const bodyStyleFilter = document.getElementById('bodyStyleFilter').value;
+            const fuelTypeFilter = document.getElementById('fuelTypeFilter').value;
+
+            currentCars = allCars.filter(car => {
+                const matchesMake = makeFilter ? car.make.toLowerCase().includes(makeFilter) : true;
+                const matchesModel = modelFilter ? car.model.toLowerCase().includes(modelFilter) : true;
+                const matchesPrice = !isNaN(priceFilter) ? car.price <= priceFilter : true;
+                const matchesBodyStyle = bodyStyleFilter ? car.bodyStyle === bodyStyleFilter : true;
+                const matchesFuelType = fuelTypeFilter ? car.fuelType === fuelTypeFilter : true;
+                return matchesMake && matchesModel && matchesPrice && matchesBodyStyle && matchesFuelType;
+            });
+            renderCarCards(currentCars);
+        }
+        
+        // Function to reset filters
+        function resetFilters() {
+            document.getElementById('filterForm').reset();
+            currentCars = [...allCars];
+            renderCarCards(currentCars);
+        }
+
+        // Function to toggle favorite status (visual only for now)
+        function toggleFavorite(heartIconElement, carId) {
+            heartIconElement.classList.toggle('favorited');
+            // In a real app, you'd save this preference
+            console.log(`Toggled favorite for car ID: ${carId}, new status: ${heartIconElement.classList.contains('favorited')}`);
+        }
+
+
+        // Initial setup: Show home page by default
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('homePageContent');
+        });
+
+    </script>
+</body>
+</html>
