@@ -1,11 +1,13 @@
 # Render.com Deployment Guide
 
 ## Overview
+
 This guide explains how to deploy Auto Universe to Render.com using the monorepo structure.
 
 ## Deployment Strategy
 
 ### 1. Backend API Service
+
 - **Service Type**: Web Service
 - **Repository**: Connect your GitHub repository
 - **Branch**: main
@@ -14,7 +16,8 @@ This guide explains how to deploy Auto Universe to Render.com using the monorepo
 - **Start Command**: `npm start`
 - **Instance Type**: Starter (or higher based on needs)
 
-### 2. Frontend Static Site  
+### 2. Frontend Static Site
+
 - **Service Type**: Static Site
 - **Repository**: Same GitHub repository
 - **Branch**: main
@@ -23,12 +26,14 @@ This guide explains how to deploy Auto Universe to Render.com using the monorepo
 - **Publish Directory**: `public`
 
 ### 3. Database
+
 - **Option A**: Use MongoDB Atlas (recommended)
 - **Option B**: Use Render's managed PostgreSQL (requires code changes)
 
 ## Environment Variables
 
 ### Backend Service Environment Variables:
+
 ```
 NODE_ENV=production
 PORT=10000
@@ -42,6 +47,7 @@ EMAIL_PASS=<your-email-password-or-app-password>
 ```
 
 ### Frontend Service Environment Variables:
+
 ```
 API_URL=https://your-backend-service-name.onrender.com
 ```
@@ -49,10 +55,12 @@ API_URL=https://your-backend-service-name.onrender.com
 ## Step-by-Step Deployment
 
 ### 1. Prepare Your Repository
+
 - Ensure all code is committed and pushed to GitHub
 - Update the API URLs in frontend JavaScript files (already done via config.js)
 
 ### 2. Create Backend Service
+
 1. Go to Render.com dashboard
 2. Click "New" > "Web Service"
 3. Connect your GitHub repository
@@ -66,6 +74,7 @@ API_URL=https://your-backend-service-name.onrender.com
 6. Deploy
 
 ### 3. Create Frontend Service
+
 1. Click "New" > "Static Site"
 2. Connect the same GitHub repository
 3. Configure:
@@ -76,16 +85,21 @@ API_URL=https://your-backend-service-name.onrender.com
 4. Deploy
 
 ### 4. Update Frontend Configuration
+
 After backend deployment, update the API URL in `/public/js/config.js`:
+
 ```javascript
 const API_CONFIG = {
-    BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-        ? 'http://localhost:5000/api'
-        : 'https://your-actual-backend-url.onrender.com/api'  // Update this
+  BASE_URL:
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+      ? "http://localhost:5000/api"
+      : "https://your-actual-backend-url.onrender.com/api", // Update this
 };
 ```
 
 ### 5. Set Up Database
+
 1. Create MongoDB Atlas cluster
 2. Get connection string
 3. Add to backend environment variables
@@ -111,17 +125,20 @@ const API_CONFIG = {
 ## Troubleshooting
 
 ### Common Issues:
+
 1. **CORS errors**: Ensure backend allows frontend domain
 2. **Database connection**: Check connection string and IP whitelist
 3. **Environment variables**: Verify all required vars are set
 4. **Build failures**: Check build logs for missing dependencies
 
 ### Logs:
+
 - Access logs from Render dashboard
 - Use `console.log` for debugging (visible in logs)
 - Check browser console for frontend errors
 
 ## Monitoring
+
 - Set up Render's monitoring alerts
 - Monitor response times and error rates
 - Consider upgrading to paid plans for better performance
