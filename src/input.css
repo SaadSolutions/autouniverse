@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition duration-300;
+  }
+  
+  .btn-search {
+    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition duration-300;
+  }
+  
+  .hero-bg {
+    background-image: url('../images/2025-Kia-K5_E6_o.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .avatar-image-container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .filter-group label {
+    @apply text-gray-500;
+  }
+  
+  .filter-group input,
+  .filter-group select {
+    @apply bg-gray-800 border-gray-700 text-white;
+  }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #A00000;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #800000;
+}

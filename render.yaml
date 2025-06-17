@@ -1,0 +1,34 @@
+services:
+  # Backend API Service
+  - type: web
+    name: auto-universe-api
+    runtime: node
+    plan: starter
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false # Set this in Render dashboard
+      - key: JWT_SECRET
+        sync: false # Set this in Render dashboard
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+    healthCheckPath: /api/health
+
+  # Frontend Static Site
+  - type: web
+    name: auto-universe-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./public
+    envVars:
+      - key: API_URL
+        value: https://auto-universe-api.onrender.com

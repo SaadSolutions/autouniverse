@@ -43,16 +43,17 @@ router.post('/register', [
 
     await dealer.save();
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: dealer._id, email: dealer.email, role: dealer.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
+    // Generate JWT tokens
+    const accessToken = dealer.generateAccessToken();
+    const refreshToken = dealer.generateRefreshToken();
+    
+    // Store refresh token
+    await dealer.addRefreshToken(refreshToken);
 
     res.status(201).json({
       message: 'Dealer registered successfully',
-      token,
+      accessToken,
+      refreshToken,
       dealer: {
         id: dealer._id,
         email: dealer.email,
@@ -115,16 +116,17 @@ router.post('/login', [
     dealer.lastLogin = new Date();
     await dealer.save();
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: dealer._id, email: dealer.email, role: dealer.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
+    // Generate JWT tokens
+    const accessToken = dealer.generateAccessToken();
+    const refreshToken = dealer.generateRefreshToken();
+    
+    // Store refresh token
+    await dealer.addRefreshToken(refreshToken);
 
     res.json({
       message: 'Login successful',
-      token,
+      accessToken,
+      refreshToken,
       dealer: {
         id: dealer._id,
         email: dealer.email,
@@ -261,6 +263,70 @@ router.put('/change-password', [auth, [
   }
 });
 
+// Refresh token
+router.post('/refresh', [
+  body('refreshToken').notEmpty()
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        error: 'Validation Error',
+        messages: errors.array().map(err => err.msg)
+      });
+    }
+
+    const { refreshToken } = req.body;
+
+    // Find dealer with this refresh token
+    const dealer = await Dealer.findOne({
+      'refreshTokens.token': refreshToken
+    });
+
+    if (!dealer) {
+      return res.status(401).json({
+        error: 'Invalid refresh token',
+        message: 'Refresh token not found or expired',
+        code: 'INVALID_REFRESH_TOKEN'
+      });
+    }
+
+    if (!dealer.isActive) {
+      return res.status(401).json({
+        error: 'Account inactive',
+        message: 'Account is inactive',
+        code: 'ACCOUNT_INACTIVE'
+      });
+    }
+
+    // Generate new tokens
+    const newAccessToken = dealer.generateAccessToken();
+    const newRefreshToken = dealer.generateRefreshToken();
+
+    // Remove old refresh token and add new one
+    await dealer.removeRefreshToken(refreshToken);
+    await dealer.addRefreshToken(newRefreshToken);
+
+    res.json({
+      message: 'Tokens refreshed successfully',
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+      dealer: {
+        id: dealer._id,
+        email: dealer.email,
+        name: dealer.name,
+        role: dealer.role
+      }
+    });
+  } catch (error) {
+    console.error('Token refresh error:', error);
+    res.status(500).json({
+      error: 'Token refresh failed',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Verify token
 router.get('/verify', auth, (req, res) => {
   res.json({
@@ -274,11 +340,51 @@ router.get('/verify', auth, (req, res) => {
   });
 });
 
-// Logout (client-side token removal)
-router.post('/logout', auth, (req, res) => {
-  res.json({
-    message: 'Logged out successfully'
-  });
+// Logout (remove refresh token)
+router.post('/logout', [
+  body('refreshToken').optional()
+], async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+    
+    if (refreshToken) {
+      // Find and remove the specific refresh token
+      const dealer = await Dealer.findOne({
+        'refreshTokens.token': refreshToken
+      });
+      
+      if (dealer) {
+        await dealer.removeRefreshToken(refreshToken);
+      }
+    }
+
+    res.json({
+      message: 'Logged out successfully'
+    });
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).json({
+      error: 'Logout failed',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Logout from all devices
+router.post('/logout-all', auth, async (req, res) => {
+  try {
+    await req.dealer.removeAllRefreshTokens();
+    
+    res.json({
+      message: 'Logged out from all devices successfully'
+    });
+  } catch (error) {
+    console.error('Logout all error:', error);
+    res.status(500).json({
+      error: 'Logout failed',
+      message: 'Internal server error'
+    });
+  }
 });
 
 module.exports = router;

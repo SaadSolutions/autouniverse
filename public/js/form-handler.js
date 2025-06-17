@@ -364,7 +364,8 @@ class LoanApplicationForm {
         console.log('Submitting data:', data);
         
         try {
-            const response = await fetch('http://localhost:5000/api/forms/loan-application', {
+            const apiUrl = window.API_CONFIG ? window.API_CONFIG.BASE_URL : 'http://localhost:5000/api';
+            const response = await fetch(`${apiUrl}/forms/loan-application`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -480,86 +481,9 @@ class LoanApplicationForm {
     clearFormState() {
         localStorage.removeItem('loanApplicationFormData');
     }
-
-    // Test function to prefill form with sample data
-    prefillSampleData() {
-        const sampleData = {
-            // Loan Information
-            desiredLoanAmount: '25000',
-            desiredMonthlyPayment: '450',
-            
-            // Personal Information
-            firstName: 'John',
-            middleInitial: 'M',
-            lastName: 'Doe',
-            ssn: '123-45-6789',
-            birthdate: '1985-03-15',
-            driversLicenseNumber: 'D123456789',
-            driversLicenseExpDate: '2027-03-15',
-            
-            // Contact Information
-            phone: '(555) 123-4567',
-            homePhone: '(555) 987-6543',
-            email: 'john.doe@email.com',
-            
-            // Residence Information
-            address: '123 Main Street',
-            city: 'Paterson',
-            state: 'NJ',
-            zip: '07503',
-            timeAtResidence: '3 years',
-            residenceType: 'Rent',
-            mortgageRentPayment: '1200',
-            
-            // Employment Information
-            employmentStatus: 'Employed',
-            currentEmployer: 'ABC Corporation',
-            jobTitle: 'Software Engineer',
-            employmentLength: '2 years 6 months',
-            workPhone: '(555) 555-5555',
-            monthlyIncome: '5500',
-            additionalIncome: '500',
-            
-            // Bank Information
-            bankName: 'First National Bank',
-            accountType: 'Checking',
-            accountLength: '5 years',
-            
-            // Vehicle Information
-            vehicleMake: 'Honda',
-            vehicleModel: 'Accord',
-            vehicleYear: '2022',
-            
-            // References
-            reference1Name: 'Jane Smith',
-            reference1Relationship: 'Friend',
-            reference1Phone: '(555) 111-2222',
-            reference2Name: 'Bob Johnson',
-            reference2Relationship: 'Coworker',
-            reference2Phone: '(555) 333-4444'
-        };
-
-        Object.entries(sampleData).forEach(([key, value]) => {
-            const field = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
-            if (field) {
-                field.value = value;
-                // Trigger validation for the field
-                this.validateField(field);
-            }
-        });
-
-        this.showNotification('Form prefilled with sample data for testing', 'info');
-    }
 }
 
 // Initialize form when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.loanForm = new LoanApplicationForm();
-    
-    // Add test button for prefilling (remove in production)
-    const testButton = document.createElement('button');
-    testButton.textContent = 'Fill Test Data';
-    testButton.className = 'fixed top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg z-50';
-    testButton.onclick = () => window.loanForm.prefillSampleData();
-    document.body.appendChild(testButton);
 });

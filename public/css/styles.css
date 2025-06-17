@@ -1,5 +1,5 @@
 /* Auto Universe Inc. - Custom Styles */
-
+@import "tailwindcss";
 body {
     font-family: 'Inter', sans-serif;
     background-color: #ffffff; /* White background */
@@ -7,7 +7,7 @@ body {
 }
 
 .hero-bg {
-    background-image: url('../2025-Kia-K5_E6_o.jpg');
+    background-image: url('../images/image.webp');
     background-size: cover;
     background-position: center;
 }
@@ -75,4 +75,75 @@ body {
 .heart-icon svg {
     stroke: #6b7280; /* Gray-500 */
     fill: none;
+}
+
+/* Logo override for about page */
+.logo-large {
+    height: 128px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+}
+
+header img.logo-large {
+    height: 128px !important;
+    width: auto !important;
+}
+
+/* Responsive Avatar Image Styling */
+.avatar-image-container {
+    width: 120px;
+    height: 90px;
+    margin: 0 auto;
+}
+
+.avatar-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mobile and tablet sizes */
+@media (min-width: 640px) {
+    .avatar-image-container {
+        width: 160px;
+        height: 120px;
+    }
+}
+
+@media (min-width: 768px) {
+    .avatar-image-container {
+        width: 200px;
+        height: 150px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .avatar-image-container {
+        width: 250px;
+        height: 190px;
+    }
+}
+
+/* Large desktop monitors - 300px max height */
+@media (min-width: 1280px) {
+    .avatar-image-container {
+        width: 400px;
+        height: 300px;
+    }
+}
+
+/* For contact page side-by-side layout */
+@media (min-width: 1024px) {
+    .avatar-contact-layout .avatar-image-container {
+        width: 100%;
+        height: 190px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .avatar-contact-layout .avatar-image-container {
+        width: 100%;
+        height: 300px;
+    }
 }

@@ -83,7 +83,6 @@ function renderCarCards(carsToRender) {
                             </div>
                         </div>
                         <p class="text-sm text-gray-600 mb-1">${car.mileage}</p>
-                        <p class="text-xl font-bold text-red-600 mb-1">$${car.price.toLocaleString()}</p>
                         <p class="text-xs text-gray-600 mb-3 flex-grow">${car.description.substring(0, 70)}...</p>
                         <a href="car-detail.html?id=${car.id}" class="mt-auto block w-full text-center bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300">
                             View Details
@@ -100,17 +99,15 @@ function renderCarCards(carsToRender) {
 function applyFilters() {
     const makeFilter = document.getElementById('makeFilter').value.toLowerCase();
     const modelFilter = document.getElementById('modelFilter').value.toLowerCase();
-    const priceFilter = parseFloat(document.getElementById('priceRangeFilter').value);
     const bodyStyleFilter = document.getElementById('bodyStyleFilter').value;
     const fuelTypeFilter = document.getElementById('fuelTypeFilter').value;
 
     currentCars = allCars.filter(car => {
         const matchesMake = makeFilter ? car.make.toLowerCase().includes(makeFilter) : true;
         const matchesModel = modelFilter ? car.model.toLowerCase().includes(modelFilter) : true;
-        const matchesPrice = !isNaN(priceFilter) ? car.price <= priceFilter : true;
         const matchesBodyStyle = bodyStyleFilter ? car.bodyStyle === bodyStyleFilter : true;
         const matchesFuelType = fuelTypeFilter ? car.fuelType === fuelTypeFilter : true;
-        return matchesMake && matchesModel && matchesPrice && matchesBodyStyle && matchesFuelType;
+        return matchesMake && matchesModel && matchesBodyStyle && matchesFuelType;
     });
     renderCarCards(currentCars);
 }

@@ -123,20 +123,14 @@ router.get('/dealer/:dealerId?', auth, async (req, res) => {
     const { dealerId } = req.params;
     const { page = 1, limit = 10, status } = req.query;
 
-    // Determine which dealer's cars to fetch
-    let targetDealerId = req.dealer._id;
+    // All authenticated dealers and admins can view all cars
+    const filter = {};
     
-    // Admins can view any dealer's cars
-    if (dealerId && req.dealer.role === 'admin') {
-      targetDealerId = dealerId;
-    } else if (dealerId && req.dealer.role !== 'admin') {
-      return res.status(403).json({
-        error: 'Access denied',
-        message: 'You can only view your own cars'
-      });
+    // If a specific dealerId is provided, filter by that dealer
+    if (dealerId) {
+      filter.addedBy = dealerId;
     }
-
-    const filter = { addedBy: targetDealerId };
+    
     if (status) {
       filter.status = status;
     }
@@ -346,13 +340,8 @@ router.put('/:id', [auth, upload.array('images', 10), [
       });
     }
 
-    // Check permissions (dealers can only edit their own cars)
-    if (req.dealer.role !== 'admin' && car.addedBy.toString() !== req.dealer._id.toString()) {
-      return res.status(403).json({
-        error: 'Access denied',
-        message: 'You can only edit your own cars'
-      });
-    }
+    // All authenticated dealers and admins can edit any car
+    // No permission restriction based on who added the car
 
     const updateData = { ...req.body };
 
@@ -417,13 +406,8 @@ router.delete('/:id/images/:imageIndex', auth, async (req, res) => {
       });
     }
 
-    // Check permissions
-    if (req.dealer.role !== 'admin' && car.addedBy.toString() !== req.dealer._id.toString()) {
-      return res.status(403).json({
-        error: 'Access denied',
-        message: 'You can only edit your own cars'
-      });
-    }
+    // All authenticated dealers and admins can delete images from any car
+    // No permission restriction based on who added the car
 
     const index = parseInt(imageIndex);
     if (index < 0 || index >= car.images.length) {
@@ -479,13 +463,8 @@ router.put('/:id/images/:imageIndex/primary', auth, async (req, res) => {
       });
     }
 
-    // Check permissions
-    if (req.dealer.role !== 'admin' && car.addedBy.toString() !== req.dealer._id.toString()) {
-      return res.status(403).json({
-        error: 'Access denied',
-        message: 'You can only edit your own cars'
-      });
-    }
+    // All authenticated dealers and admins can set primary images for any car
+    // No permission restriction based on who added the car
 
     const index = parseInt(imageIndex);
     if (index < 0 || index >= car.images.length) {
@@ -515,7 +494,7 @@ router.put('/:id/images/:imageIndex/primary', auth, async (req, res) => {
   }
 });
 
-// Delete car (dealers can delete their own cars, admins can delete any)
+// Delete car (all authenticated dealers and admins can delete any car)
 router.delete('/:id', auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -528,13 +507,8 @@ router.delete('/:id', auth, async (req, res) => {
       });
     }
 
-    // Check permissions
-    if (req.dealer.role !== 'admin' && car.addedBy.toString() !== req.dealer._id.toString()) {
-      return res.status(403).json({
-        error: 'Access denied',
-        message: 'You can only delete your own cars'
-      });
-    }
+    // All authenticated dealers and admins can delete any car
+    // No permission restriction based on who added the car
 
     // Delete associated images
     for (const image of car.images) {

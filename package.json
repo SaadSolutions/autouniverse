@@ -1,0 +1,21 @@
+{
+    "name": "auto-universe-frontend",
+    "version": "1.0.0",
+    "description": "Auto Universe Inc. - Frontend with Tailwind CSS",
+    "scripts": {
+        "build-css": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --watch",
+        "build": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --minify",
+        "start": "cd backend && npm start",
+        "dev": "cd backend && npm run dev"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.4.0"
+    },
+    "keywords": [
+        "auto",
+        "dealership",
+        "tailwindcss",
+        "responsive"
+    ],
+    "author": "Auto Universe Inc."
+}

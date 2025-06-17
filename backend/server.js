@@ -53,7 +53,10 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 }));
 
 // Body parsing middleware
@@ -80,12 +83,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/forms', formRoutes);
 
-// Health check endpoint
+// Health check endpoint for Render
 app.get('/api/health', (req, res) => {
-  res.json({ 
+  res.status(200).json({ 
     status: 'OK', 
-    message: 'Auto Universe API is running',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    service: 'Auto Universe API'
   });
 });
 

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const dealerSchema = new mongoose.Schema({
   email: {
@@ -31,7 +33,18 @@ const dealerSchema = new mongoose.Schema({
   },
   lastLogin: {
     type: Date
-  }
+  },
+  refreshTokens: [{
+    token: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      expires: 2592000 // 30 days in seconds
+    }
+  }]
 }, {
   timestamps: true
 });
@@ -52,6 +65,49 @@ dealerSchema.pre('save', async function(next) {
 // Compare password method
 dealerSchema.methods.comparePassword = async function(password) {
   return bcrypt.compare(password, this.password);
+};
+
+// Generate access token
+dealerSchema.methods.generateAccessToken = function() {
+  return jwt.sign(
+    { 
+      id: this._id, 
+      email: this.email, 
+      role: this.role 
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: '15m' } // Short-lived access token
+  );
+};
+
+// Generate refresh token
+dealerSchema.methods.generateRefreshToken = function() {
+  return crypto.randomBytes(40).toString('hex');
+};
+
+// Add refresh token to dealer
+dealerSchema.methods.addRefreshToken = async function(refreshToken) {
+  // Remove old refresh tokens (keep only last 5)
+  if (this.refreshTokens.length >= 5) {
+    this.refreshTokens = this.refreshTokens.slice(-4);
+  }
+  
+  this.refreshTokens.push({ token: refreshToken });
+  await this.save();
+};
+
+// Remove refresh token
+dealerSchema.methods.removeRefreshToken = async function(refreshToken) {
+  this.refreshTokens = this.refreshTokens.filter(
+    tokenObj => tokenObj.token !== refreshToken
+  );
+  await this.save();
+};
+
+// Remove all refresh tokens (for logout all devices)
+dealerSchema.methods.removeAllRefreshTokens = async function() {
+  this.refreshTokens = [];
+  await this.save();
 };
 
 // Remove password from JSON output

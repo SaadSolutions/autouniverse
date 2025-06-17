@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dealer Dashboard - Auto Universe Inc.</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dealer Dashboard - Auto Universe Inc. Management Portal</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Auto Universe Inc. dealer dashboard - secure management portal for inventory, customer applications, and business operations.">
+    <meta name="keywords" content="dealer dashboard, Auto Universe Inc management, inventory management, customer applications, dealer portal">
+    <meta name="author" content="Auto Universe Inc.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Dealer Dashboard - Auto Universe Inc.">
+    <meta property="og:description" content="Secure dealer management portal for Auto Universe Inc.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.autouniverseinc.com/dashboard.html">
+    <meta property="og:image" content="https://www.autouniverseinc.com/images/Logo425548.af10b46b.png">
+    <meta property="og:site_name" content="Auto Universe Inc.">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dealer Dashboard - Auto Universe Inc.">
+    <meta name="twitter:description" content="Secure dealer management portal for Auto Universe Inc.">
+    <meta name="twitter:image" content="https://www.autouniverseinc.com/images/Logo425548.af10b46b.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .sidebar-transition { transition: transform 0.3s ease-in-out; }
@@ -250,6 +271,123 @@
                                         <option value="CVT">CVT</option>
                                     </select>
                                 </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Drivetrain</label>
+                                    <select name="drivetrain"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option value="FWD">Front-Wheel Drive (FWD)</option>
+                                        <option value="RWD">Rear-Wheel Drive (RWD)</option>
+                                        <option value="AWD">All-Wheel Drive (AWD)</option>
+                                        <option value="4WD">Four-Wheel Drive (4WD)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Engine</label>
+                                    <input type="text" name="engine"
+                                           placeholder="e.g., 2.0L 4-Cylinder Turbo"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Exterior Color</label>
+                                    <input type="text" name="exteriorColor"
+                                           placeholder="e.g., Midnight Black"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Interior Color</label>
+                                    <input type="text" name="interiorColor"
+                                           placeholder="e.g., Black Leather"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">VIN</label>
+                                    <input type="text" name="vin" maxlength="17"
+                                           placeholder="17-character VIN (optional)"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 uppercase">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Condition</label>
+                                    <select name="condition"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option value="Excellent">Excellent</option>
+                                        <option value="Good" selected>Good</option>
+                                        <option value="Fair">Fair</option>
+                                        <option value="Poor">Poor</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                    <select name="status"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option value="available" selected>Available</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="sold">Sold</option>
+                                        <option value="draft">Draft</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Features</label>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4 p-4 border border-gray-200 rounded-md max-h-48 overflow-y-auto">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Air Conditioning" class="mr-2">
+                                        Air Conditioning
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Bluetooth" class="mr-2">
+                                        Bluetooth
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Backup Camera" class="mr-2">
+                                        Backup Camera
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Heated Seats" class="mr-2">
+                                        Heated Seats
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Sunroof" class="mr-2">
+                                        Sunroof
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Navigation System" class="mr-2">
+                                        Navigation System
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Leather Seats" class="mr-2">
+                                        Leather Seats
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Cruise Control" class="mr-2">
+                                        Cruise Control
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Remote Start" class="mr-2">
+                                        Remote Start
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Alloy Wheels" class="mr-2">
+                                        Alloy Wheels
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Power Windows" class="mr-2">
+                                        Power Windows
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="features" value="Keyless Entry" class="mr-2">
+                                        Keyless Entry
+                                    </label>
+                                </div>
+                                <input type="text" id="customFeature" placeholder="Add custom feature and press Enter"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
                             </div>
                             
                             <div class="mt-6">
@@ -297,6 +435,8 @@
         </div>
     </div>
 
+    <script src="js/config.js"></script>
+    <script src="js/auth-manager.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>

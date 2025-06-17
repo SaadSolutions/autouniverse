@@ -1,0 +1,4 @@
+add car inventory editing, 
+allow to view form from dashboard, most likely need to make it store in database too. 
+make contact page also display on dashboard and send email. 
+npx tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --minify

@@ -4,9 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Auto Universe Inc. - Paterson, NJ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>About Auto Universe Inc. - Trusted Used Car Dealer Paterson NJ</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn about Auto Universe Inc., a trusted used car dealership in Paterson, NJ. We specialize in affordable financing, quality vehicles, and excellent customer service since our establishment.">
+    <meta name="keywords" content="about Auto Universe Inc, used car dealer Paterson NJ, car dealership history, quality used cars, affordable financing, customer service, Paterson auto dealer">
+    <meta name="author" content="Auto Universe Inc.">
+    <meta name="robots" content="index, follow">
+    <meta name="geo.region" content="US-NJ">
+    <meta name="geo.placename" content="Paterson, New Jersey">
+    <meta name="geo.position" content="40.9161;-74.1714">
+    <meta name="ICBM" content="40.9161, -74.1714">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="About Auto Universe Inc. - Trusted Used Car Dealer Paterson NJ">
+    <meta property="og:description" content="Learn about our trusted used car dealership in Paterson, NJ. We specialize in affordable financing and quality vehicles.">
+    <meta property="og:type" content="business.business">
+    <meta property="og:url" content="https://www.autouniverseinc.com/contact.html">
+    <meta property="og:image" content="https://www.autouniverseinc.com/images/Logo425548.af10b46b.png">
+    <meta property="og:site_name" content="Auto Universe Inc.">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="About Auto Universe Inc. - Paterson NJ">
+    <meta name="twitter:description" content="Trusted used car dealership in Paterson, NJ specializing in affordable financing and quality vehicles.">
+    <meta name="twitter:image" content="https://www.autouniverseinc.com/images/Logo425548.af10b46b.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -19,8 +44,9 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center justify-between py-3">
                 <div class="flex items-center mb-2 md:mb-0">
-                    <a href="index.html" class="text-2xl sm:text-3xl font-bold text-white">Auto <span
-                            class="text-gray-100">UNIVERSE INC.</span></a>
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/Logo425548.af10b46b.png" alt="Auto Universe Inc." class="h-8 sm:h-10 md:h-12 w-auto">
+                    </a>
                 </div>
                 <nav class="flex-grow md:flex-grow-0">
                     <ul
@@ -29,13 +55,12 @@
                         <li><a href="inventory.html" class="hover:text-gray-200 transition duration-300 text-white">Inventory</a>
                         </li>
                         <li><a href="form.html" class="hover:text-gray-200 transition duration-300 text-white">Financing</a></li>
-                        <li><a href="#" class="hover:text-gray-200 transition duration-300 text-white">Reviews</a></li>
                         <li><a href="contact.html" class="text-gray-200 font-semibold">About Us</a></li>
                         <li><a href="about.html" class="hover:text-gray-200 transition duration-300 text-white">Contact</a></li>
                     </ul>
                 </nav>
                 <div class="text-xs sm:text-sm text-gray-200 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
-                    <p>(732) 907-8380 - (732) 676-4855</p>
+                    <p>(732) 907-8380</p>
                     <p>1838 Main St, Paterson, NJ 07503</p>
                 </div>
             </div>
@@ -54,18 +79,12 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Page Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-3xl sm:text-4xl font-bold text-red-600 mb-6 border-b border-gray-300 pb-4">ABOUT AUTO UNIVERSE INC.</h1>
-        </div>
-
         <!-- About Section -->
-        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12 avatar-contact-layout">
             <!-- About Image -->
             <div class="lg:w-1/3">
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <img src="https://i.imgur.com/z1q185h.png" alt="Auto Universe Showroom" 
-                         class="w-full h-auto rounded border border-gray-300">
+                <div class="avatar-image-container rounded-lg overflow-hidden border border-gray-300">
+                    <img src="images/avatar.jpg" alt="Auto Universe Inc" class="w-full h-full object-cover">
                 </div>
             </div>
 
@@ -181,18 +200,12 @@
     <!-- Footer -->
     <footer class="bg-red-700 text-white py-8 mt-12">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-end items-center">
                 <div class="flex flex-wrap space-x-6 text-sm">
                     <a href="#" class="hover:text-gray-300 transition duration-300">Privacy Policy</a>
                     <a href="#" class="hover:text-gray-300 transition duration-300">Terms and Conditions</a>
-                </div>
-                <div class="flex space-x-3">
-                    <a href="dashboard.html" class="bg-red-600 bg-opacity-20 hover:bg-opacity-30 text-red-600 text-xs px-3 py-2 rounded transition duration-300 border border-red-600">
-                        Dealer Login
-                    </a>
-                    <a href="#" class="bg-red-600 bg-opacity-20 hover:bg-opacity-30 text-red-600 text-xs px-3 py-2 rounded transition duration-300 border border-red-600">
-                        Sitemap
-                    </a>
+                    <a href="#" class="hover:text-gray-300 transition duration-300">Sitemap</a>
+                    <a href="dashboard.html" class="hover:text-gray-300 transition duration-300">Dealer Login</a>
                 </div>
             </div>
         </div>

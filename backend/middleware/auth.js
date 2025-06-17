@@ -8,7 +8,8 @@ const auth = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ 
         error: 'Access denied', 
-        message: 'No token provided' 
+        message: 'No token provided',
+        code: 'NO_TOKEN'
       });
     }
 
@@ -18,14 +19,16 @@ const auth = async (req, res, next) => {
     if (!dealer) {
       return res.status(401).json({ 
         error: 'Access denied', 
-        message: 'Invalid token' 
+        message: 'Invalid token',
+        code: 'INVALID_TOKEN'
       });
     }
 
     if (!dealer.isActive) {
       return res.status(401).json({ 
         error: 'Access denied', 
-        message: 'Account is inactive' 
+        message: 'Account is inactive',
+        code: 'ACCOUNT_INACTIVE'
       });
     }
 
@@ -33,9 +36,28 @@ const auth = async (req, res, next) => {
     next();
   } catch (error) {
     console.error('Auth middleware error:', error);
+    
+    // Handle specific JWT errors
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ 
+        error: 'Access denied', 
+        message: 'Token expired',
+        code: 'TOKEN_EXPIRED'
+      });
+    }
+    
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({ 
+        error: 'Access denied', 
+        message: 'Invalid token',
+        code: 'INVALID_TOKEN'
+      });
+    }
+    
     res.status(401).json({ 
       error: 'Access denied', 
-      message: 'Invalid token' 
+      message: 'Invalid token',
+      code: 'AUTH_ERROR'
     });
   }
 };

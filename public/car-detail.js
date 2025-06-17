@@ -43,7 +43,6 @@ function displayCarDetails(car) {
     
     // Main car information
     document.getElementById('carTitle').textContent = `${car.year} ${car.make} ${car.model}`;
-    document.getElementById('carPrice').textContent = car.price.toLocaleString();
     document.getElementById('carViews').querySelector('.views-count').textContent = car.views || 0;
     
     // Condition badge
