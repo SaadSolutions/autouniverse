@@ -25,7 +25,14 @@ app.use(limiter);
 
 // CORS configuration
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? ['https://autouniverse.com', 'https://www.autouniverse.com'] 
+  ? [
+      'https://autouniverse.com', 
+      'https://www.autouniverse.com',
+      // Add your actual Render frontend URL here
+      'https://autouniverse-1.onrender.com',  // Replace with your real frontend URL
+      // Allow any .onrender.com subdomain for now (temporary - remove in production)
+      /https:\/\/.*\.onrender\.com$/
+    ] 
   : [
       'http://localhost:3000', 
       'http://127.0.0.1:5500',
@@ -44,7 +51,17 @@ app.use(cors({
     
     console.log('CORS request from origin:', origin);
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    // Check if origin matches any allowed origins (including regex patterns)
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return allowedOrigin === origin;
+      } else if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
       console.log('CORS allowed for origin:', origin);
       callback(null, true);
     } else {
