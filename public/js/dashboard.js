@@ -476,7 +476,19 @@ async function handleAddCar(e) {
         
     } catch (error) {
         console.error('Add car error:', error);
-        alert('Failed to add car: ' + error.message);
+        
+        // Try to get more specific error information
+        let errorMessage = 'Failed to add car';
+        if (error.message) {
+            errorMessage += ': ' + error.message;
+        }
+        
+        // If it's a validation error, show specific fields
+        if (error.message && error.message.includes('Validation Error')) {
+            console.log('This is a validation error - check the console for details');
+        }
+        
+        alert(errorMessage);
     } finally {
         // Reset button state
         btnText.classList.remove('hidden');

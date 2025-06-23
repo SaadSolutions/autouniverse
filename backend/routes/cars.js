@@ -238,8 +238,8 @@ router.post('/', [auth, upload.array('images', 10), [
   body('year').isInt({ min: 1900, max: new Date().getFullYear() + 1 }).withMessage('Valid year is required'),
   body('mileage').isFloat({ min: 0 }).withMessage('Valid mileage is required'),
   body('price').isFloat({ min: 0 }).withMessage('Valid price is required'),
-  body('bodyStyle').isIn(['Sedan', 'SUV', 'Truck', 'Hatchback', 'Coupe', 'Convertible', 'Wagon', 'Van', 'Other']),
-  body('fuelType').isIn(['Gasoline', 'Diesel', 'Hybrid', 'Electric', 'Other']),
+  body('bodyStyle').optional().isIn(['Sedan', 'SUV', 'Truck', 'Hatchback', 'Coupe', 'Convertible', 'Wagon', 'Van', 'Other']).withMessage('Invalid body style'),
+  body('fuelType').optional().isIn(['Gasoline', 'Diesel', 'Hybrid', 'Electric', 'Other']).withMessage('Invalid fuel type'),
   body('transmission').optional().isIn(['Manual', 'Automatic', 'CVT']),
   body('drivetrain').optional().isIn(['FWD', 'RWD', 'AWD', '4WD']),
   body('vin').optional().isLength({ min: 17, max: 17 }).matches(/^[A-HJ-NPR-Z0-9]{17}$/),
@@ -248,11 +248,19 @@ router.post('/', [auth, upload.array('images', 10), [
   body('status').optional().isIn(['available', 'sold', 'pending', 'draft'])
 ]], async (req, res) => {
   try {
+    // Log received data for debugging
+    console.log('=== ADD CAR REQUEST ===');
+    console.log('Body:', req.body);
+    console.log('Files:', req.files?.length || 0);
+    console.log('User:', req.dealer?.email);
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log('Validation errors:', errors.array());
       return res.status(400).json({
         error: 'Validation Error',
-        messages: errors.array().map(err => err.msg)
+        messages: errors.array().map(err => `${err.path}: ${err.msg}`),
+        details: errors.array()
       });
     }
 
@@ -271,12 +279,22 @@ router.post('/', [auth, upload.array('images', 10), [
       carData.tags = carData.tags.split(',').map(t => t.trim().toLowerCase()).filter(t => t);
     }
 
-    // Handle uploaded images
+    // Handle uploaded images (with error handling for Render)
     if (req.files && req.files.length > 0) {
-      carData.images = req.files.map((file, index) => ({
-        url: `/uploads/cars/${file.filename}`,
-        isPrimary: index === 0 // First image is primary
-      }));
+      try {
+        carData.images = req.files.map((file, index) => ({
+          url: `/uploads/cars/${file.filename}`,
+          isPrimary: index === 0 // First image is primary
+        }));
+        console.log('Images processed:', carData.images.length);
+      } catch (imageError) {
+        console.log('Image processing error:', imageError);
+        // Continue without images for now
+        carData.images = [];
+      }
+    } else {
+      console.log('No files uploaded');
+      carData.images = [];
     }
 
     const car = new Car(carData);

@@ -10,6 +10,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const carRoutes = require('./routes/cars');
 const formRoutes = require('./routes/forms');
+const appointmentRoutes = require('./routes/appointments');
 
 const app = express();
 
@@ -98,6 +99,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/auto-univ
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/forms', formRoutes);
+app.use('/api/appointments', appointmentRoutes);
 
 // Health check endpoint for Render
 app.get('/api/health', (req, res) => {
@@ -117,6 +119,7 @@ app.get('/', (req, res) => {
       auth: '/api/auth',
       cars: '/api/cars',
       forms: '/api/forms',
+      appointments: '/api/appointments',
       health: '/api/health'
     }
   });
