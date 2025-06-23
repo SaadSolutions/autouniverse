@@ -14,6 +14,9 @@ const appointmentRoutes = require('./routes/appointments');
 
 const app = express();
 
+// Trust proxy - MUST be before rate limiting
+app.set('trust proxy', true);
+
 // Security middleware
 app.use(helmet());
 
@@ -28,7 +31,7 @@ app.use(limiter);
 const allowedOrigins = process.env.NODE_ENV === 'production' 
   ? [
       'https://autouniverse.com', 
-      'https://www.autouniverse.com',
+        'https://www.autouniverse.com',
       'https://autouniverse-1.onrender.com',  // Your actual frontend URL
       // Allow any .onrender.com subdomain for testing (remove in final production)
       /https:\/\/.*\.onrender\.com$/
