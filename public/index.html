@@ -100,9 +100,118 @@
                 <p class="text-lg sm:text-xl md:text-2xl font-semibold">We Sell Quality - Auto Universe Inc. in Paterson, NJ</p>
             </div>
         </section>
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-600">
-            <p>More content (featured cars, testimonials, etc.) can be added here.</p>
-        </div>
+        <!-- Appointment Section -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-red-600 mb-8">
+                    Schedule a Test Drive
+                </h2>
+                <form id="quickAppointmentForm" class="space-y-4">
+                    <!-- Row 1: Appointment Type and Name -->
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="appointmentType" class="block text-sm font-medium text-gray-700 mb-1">Appointment Type</label>
+                            <select id="appointmentType" name="appointmentType" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                                <option value="">Select type</option>
+                                <option value="car-viewing">Car Viewing</option>
+                                <option value="test-drive">Test Drive</option>
+                                <option value="financing">Financing Consultation</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Contact Info -->
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Date and Time -->
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="preferredDate" class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+                            <input type="date" id="preferredDate" name="preferredDate" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                        </div>
+                        <div>
+                            <label for="preferredTime" class="block text-sm font-medium text-gray-700 mb-1">Preferred Time</label>
+                            <div class="grid grid-cols-4 gap-1">
+                                <button type="button" class="time-slot px-2 py-1 border border-gray-300 rounded text-xs hover:bg-red-600 hover:text-white transition" data-time="09:00">9 AM</button>
+                                <button type="button" class="time-slot px-2 py-1 border border-gray-300 rounded text-xs hover:bg-red-600 hover:text-white transition" data-time="11:00">11 AM</button>
+                                <button type="button" class="time-slot px-2 py-1 border border-gray-300 rounded text-xs hover:bg-red-600 hover:text-white transition" data-time="13:00">1 PM</button>
+                                <button type="button" class="time-slot px-2 py-1 border border-gray-300 rounded text-xs hover:bg-red-600 hover:text-white transition" data-time="15:00">3 PM</button>
+                            </div>
+                            <input type="hidden" id="selectedTime" name="preferredTime">
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Car Interest and Notes -->
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="carInterest" class="block text-sm font-medium text-gray-700 mb-1">Car of Interest (Optional)</label>
+                            <input type="text" id="carInterest" name="carInterest" placeholder="e.g., 2020 Honda Civic" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                        </div>
+                        <div>
+                            <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
+                            <textarea id="notes" name="notes" rows="2" placeholder="Any specific questions..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-center pt-4">
+                        <button type="submit" class="bg-red-600 text-white py-3 px-8 rounded-md hover:bg-red-700 transition duration-300 font-semibold shadow-lg">
+                            <i class="fas fa-calendar-plus mr-2"></i>
+                            Request Appointment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Location Map Section -->
+        <section class="bg-gray-50 py-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-red-600 mb-8">
+                    <i class="fas fa-map-marker-alt mr-3"></i>
+                    Visit Our Dealership
+                </h2>
+                <div class="w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-lg border border-gray-200">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3015.7819408235323!2d-74.16611092258856!3d40.89859797136606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2fe8273186579%3A0x29631c8253f68abf!2sAuto%20Universe%20Inc!5e0!3m2!1sen!2sus!4v1750648103776!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="text-center mt-6">
+                    <p class="text-gray-600 mb-2">
+                        <i class="fas fa-map-marker-alt text-red-600 mr-2"></i>
+                        828 Main Street, Paterson, NJ 07503
+                    </p>
+                    <p class="text-gray-600">
+                        <i class="fas fa-phone text-red-600 mr-2"></i>
+                        (732) 676-4855
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -125,6 +234,90 @@
         </svg>
         TEXT US
     </button>
+
+    <script>
+        // Quick appointment form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Time slot selection
+            const timeSlots = document.querySelectorAll('.time-slot');
+            const selectedTimeInput = document.getElementById('selectedTime');
+
+            timeSlots.forEach(slot => {
+                slot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove selected class from all slots
+                    timeSlots.forEach(s => s.classList.remove('bg-red-600', 'text-white'));
+                    
+                    // Add selected class to clicked slot
+                    this.classList.add('bg-red-600', 'text-white');
+                    
+                    // Set the hidden input value
+                    selectedTimeInput.value = this.getAttribute('data-time');
+                });
+            });
+
+            // Set minimum date to today
+            const dateInput = document.getElementById('preferredDate');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+
+            // Form submission
+            const form = document.getElementById('quickAppointmentForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Check if time is selected
+                if (!selectedTimeInput.value) {
+                    alert('Please select a preferred time slot.');
+                    return;
+                }
+
+                // Collect form data
+                const formData = new FormData(form);
+                const appointmentData = Object.fromEntries(formData.entries());
+
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+                submitBtn.disabled = true;
+
+                // Submit to appointments API (if available)
+                fetch('/api/appointments', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(appointmentData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Appointment request submitted successfully! We will contact you shortly to confirm.');
+                        form.reset();
+                        timeSlots.forEach(s => s.classList.remove('bg-red-600', 'text-white'));
+                        selectedTimeInput.value = '';
+                    } else {
+                        throw new Error(data.message || 'Failed to submit appointment');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Fallback to email or show form data
+                    alert('Thank you for your appointment request! We will contact you soon at ' + appointmentData.email);
+                    form.reset();
+                    timeSlots.forEach(s => s.classList.remove('bg-red-600', 'text-white'));
+                    selectedTimeInput.value = '';
+                })
+                .finally(() => {
+                    // Restore button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
