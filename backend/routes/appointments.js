@@ -324,7 +324,7 @@ async function sendAppointmentEmails(appointment) {
                         <ul>
                             <li>Please bring a valid driver's license for test drives</li>
                             <li>Bring proof of insurance if you plan to test drive</li>
-                            <li>Our address: 1838 Main St, Paterson, NJ 07503</li>
+                            <li>Our address: 828 Main St, Paterson, NJ 07503</li>
                             <li>Phone: (732) 907-8380</li>
                         </ul>
                     </div>
@@ -338,7 +338,7 @@ async function sendAppointmentEmails(appointment) {
                 </div>
                 
                 <div style="background-color: #374151; color: white; padding: 15px; text-align: center; font-size: 12px;">
-                    <p>Auto Universe Inc. | 1838 Main St, Paterson, NJ 07503 | (732) 907-8380</p>
+                    <p>Auto Universe Inc. | 828 Main St, Paterson, NJ 07503 | (732) 907-8380</p>
                 </div>
             </div>
         `
