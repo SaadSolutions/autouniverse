@@ -62,17 +62,16 @@ router.post('/loan-application', [
   
   // Employment Information validation
   body('employmentStatus').isIn(['Employed', 'Self-Employed', 'Unemployed', 'Student', 'Retired']).withMessage('Valid employment status is required'),
-  body('currentEmployer').optional().trim(),
-  body('jobTitle').optional().trim(),
-  body('employmentLength').optional().trim(),
-  body('workPhone').optional().trim(),
-  body('monthlyIncome').optional().isFloat({ min: 0 }),
+  body('employerName').trim().notEmpty().withMessage('Employer name is required'),
+  body('occupation').trim().notEmpty().withMessage('Job title/occupation is required'),
+  body('timeOnJob').trim().notEmpty().withMessage('Time on job is required'),
+  body('employerAddress').trim().notEmpty().withMessage('Employer address is required'),
+  body('employerCity').trim().notEmpty().withMessage('Employer city is required'),
+  body('employerState').trim().notEmpty().withMessage('Employer state is required'),
+  body('employerZip').matches(/^\d{5}(-\d{4})?$/).withMessage('Valid employer ZIP code is required'),
+  body('businessPhone').optional().trim(),
+  body('monthlyIncome').isFloat({ min: 0 }).withMessage('Monthly income is required'),
   body('additionalIncome').optional().isFloat({ min: 0 }),
-  
-  // Bank Information validation
-  body('bankName').optional().trim(),
-  body('accountType').optional().isIn(['Checking', 'Savings', 'Both']),
-  body('accountLength').optional().trim(),
   
   // Terms validation
   body('termsAccepted').equals('true').withMessage('Terms must be accepted')
@@ -117,17 +116,16 @@ router.post('/loan-application', [
       
       // Employment Information
       employmentStatus: req.body.employmentStatus,
-      currentEmployer: req.body.currentEmployer,
-      jobTitle: req.body.jobTitle,
-      employmentLength: req.body.employmentLength,
-      workPhone: req.body.workPhone,
+      employerName: req.body.employerName,
+      occupation: req.body.occupation,
+      timeOnJob: req.body.timeOnJob,
+      employerAddress: req.body.employerAddress,
+      employerCity: req.body.employerCity,
+      employerState: req.body.employerState,
+      employerZip: req.body.employerZip,
+      businessPhone: req.body.businessPhone,
       monthlyIncome: req.body.monthlyIncome ? parseFloat(req.body.monthlyIncome) : undefined,
       additionalIncome: req.body.additionalIncome ? parseFloat(req.body.additionalIncome) : 0,
-      
-      // Bank Information
-      bankName: req.body.bankName,
-      accountType: req.body.accountType,
-      accountLength: req.body.accountLength,
       
       // Terms
       termsAccepted: req.body.termsAccepted === true || req.body.termsAccepted === 'true'
@@ -162,23 +160,6 @@ router.post('/loan-application', [
     } else {
       applicationData.hasTradeIn = false;
     }
-
-    // Handle references
-    const references = [];
-    for (let i = 1; i <= 3; i++) {
-      const refName = req.body[`reference${i}Name`];
-      const refRelationship = req.body[`reference${i}Relationship`];
-      const refPhone = req.body[`reference${i}Phone`];
-      
-      if (refName && refRelationship && refPhone) {
-        references.push({
-          name: refName,
-          relationship: refRelationship,
-          phone: refPhone
-        });
-      }
-    }
-    applicationData.references = references;
 
     const application = new LoanApplication(applicationData);
     await application.save();
@@ -383,10 +364,13 @@ async function sendLoanApplicationEmail(application) {
       <div style="background-color: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 5px;">
         <h3>Employment Information</h3>
         <p><strong>Employment Status:</strong> ${application.employmentStatus}</p>
-        ${application.currentEmployer ? `<p><strong>Current Employer:</strong> ${application.currentEmployer}</p>` : ''}
-        ${application.jobTitle ? `<p><strong>Job Title:</strong> ${application.jobTitle}</p>` : ''}
+        ${application.employerName ? `<p><strong>Employer:</strong> ${application.employerName}</p>` : ''}
+        ${application.occupation ? `<p><strong>Job Title:</strong> ${application.occupation}</p>` : ''}
+        ${application.timeOnJob ? `<p><strong>Time on Job:</strong> ${application.timeOnJob}</p>` : ''}
+        ${application.businessPhone ? `<p><strong>Work Phone:</strong> ${application.businessPhone}</p>` : ''}
         ${application.monthlyIncome ? `<p><strong>Monthly Income:</strong> $${application.monthlyIncome.toLocaleString()}</p>` : ''}
         ${application.additionalIncome ? `<p><strong>Additional Income:</strong> $${application.additionalIncome.toLocaleString()}</p>` : ''}
+        ${application.employerAddress ? `<p><strong>Employer Address:</strong> ${application.employerAddress}, ${application.employerCity}, ${application.employerState} ${application.employerZip}</p>` : ''}
       </div>
 
       <div style="background-color: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 5px;">

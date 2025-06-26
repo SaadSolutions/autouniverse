@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/Appointment');
 const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
 
 // Email configuration
 const createEmailTransporter = () => {
@@ -13,21 +12,6 @@ const createEmailTransporter = () => {
             pass: process.env.EMAIL_PASS
         }
     });
-};
-
-// Google Calendar configuration
-const createCalendarAuth = () => {
-    const oauth2Client = new google.auth.OAuth2(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_CLIENT_SECRET,
-        process.env.GOOGLE_REDIRECT_URI
-    );
-
-    oauth2Client.setCredentials({
-        refresh_token: process.env.GOOGLE_REFRESH_TOKEN
-    });
-
-    return oauth2Client;
 };
 
 // Create a new appointment
@@ -67,6 +51,26 @@ router.post('/', async (req, res) => {
             });
         }
 
+        // Validate business hours (10 AM - 7 PM, Monday - Saturday)
+        const appointmentDate = new Date(preferredDate);
+        const dayOfWeek = appointmentDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+        
+        if (dayOfWeek === 0) { // Sunday
+            return res.status(400).json({
+                success: false,
+                message: 'We are closed on Sundays. Please select Monday through Saturday.'
+            });
+        }
+
+        // Validate time slot (10:00 - 19:00)
+        const timeHour = parseInt(preferredTime.split(':')[0]);
+        if (timeHour < 10 || timeHour > 19) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please select a time between 10:00 AM and 7:00 PM.'
+            });
+        }
+
         // Create new appointment
         const appointment = new Appointment({
             type,
@@ -84,16 +88,6 @@ router.post('/', async (req, res) => {
 
         // Send confirmation emails
         await sendAppointmentEmails(appointment);
-
-        // Try to create Google Calendar event
-        try {
-            const calendarEventId = await createGoogleCalendarEvent(appointment);
-            appointment.googleCalendarEventId = calendarEventId;
-            await appointment.save();
-        } catch (calendarError) {
-            console.error('Google Calendar event creation failed:', calendarError);
-            // Don't fail the whole request if calendar creation fails
-        }
 
         res.status(201).json({
             success: true,
@@ -236,15 +230,6 @@ router.delete('/:id', async (req, res) => {
             });
         }
 
-        // Delete Google Calendar event if exists
-        if (appointment.googleCalendarEventId) {
-            try {
-                await deleteGoogleCalendarEvent(appointment.googleCalendarEventId);
-            } catch (calendarError) {
-                console.error('Failed to delete Google Calendar event:', calendarError);
-            }
-        }
-
         res.json({
             success: true,
             message: 'Appointment deleted successfully'
@@ -296,7 +281,7 @@ async function sendAppointmentEmails(appointment) {
 
     // Email to customer
     const customerEmailOptions = {
-        from: process.env.EMAIL_USER,
+        from: 'autouniverseinc@gmail.com',
         to: appointment.email,
         subject: 'Appointment Confirmation - Auto Universe Inc.',
         html: `
@@ -325,11 +310,12 @@ async function sendAppointmentEmails(appointment) {
                             <li>Please bring a valid driver's license for test drives</li>
                             <li>Bring proof of insurance if you plan to test drive</li>
                             <li>Our address: 828 Main St, Paterson, NJ 07503</li>
-                            <li>Phone: (732) 907-8380</li>
+                            <li>Phone: (732) 676-4855</li>
+                            <li>Business Hours: Monday - Saturday, 10:00 AM - 7:00 PM</li>
                         </ul>
                     </div>
                     
-                    <p>If you need to reschedule or cancel your appointment, please call us at (732) 907-8380.</p>
+                    <p>If you need to reschedule or cancel your appointment, please call us at (732) 676-4855.</p>
                     
                     <p>We look forward to seeing you!</p>
                     
@@ -338,7 +324,7 @@ async function sendAppointmentEmails(appointment) {
                 </div>
                 
                 <div style="background-color: #374151; color: white; padding: 15px; text-align: center; font-size: 12px;">
-                    <p>Auto Universe Inc. | 828 Main St, Paterson, NJ 07503 | (732) 907-8380</p>
+                    <p>Auto Universe Inc. | 828 Main St, Paterson, NJ 07503 | (732) 676-4855</p>
                 </div>
             </div>
         `
@@ -346,8 +332,8 @@ async function sendAppointmentEmails(appointment) {
 
     // Email to dealership
     const dealershipEmailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.DEALERSHIP_EMAIL || process.env.EMAIL_USER,
+        from: 'autouniverseinc@gmail.com',
+        to: 'autouniverseinc@gmail.com',
         subject: `New Appointment Request - ${appointment.firstName} ${appointment.lastName}`,
         html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -390,8 +376,8 @@ async function sendAppointmentNotificationEmails(appointmentData) {
 
     // Email to dealership (since we're not saving to DB)
     const emailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.DEALERSHIP_EMAIL || process.env.EMAIL_USER,
+        from: 'autouniverseinc@gmail.com',
+        to: 'autouniverseinc@gmail.com',
         subject: `Appointment Request - ${appointmentData.firstName} ${appointmentData.lastName}`,
         html: `
             <h2>New Appointment Request</h2>
@@ -421,66 +407,19 @@ async function sendStatusUpdateEmail(appointment) {
     if (appointment.status === 'pending') return; // No email for pending status
 
     const emailOptions = {
-        from: process.env.EMAIL_USER,
-        to: appointment.email,
+        from: 'autouniverseinc@gmail.com',
+        to: 'autouniverseinc@gmail.com',
         subject: `Appointment ${appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)} - Auto Universe Inc.`,
         html: `
             <h2>${statusMessages[appointment.status]}</h2>
             <p>Dear ${appointment.firstName} ${appointment.lastName},</p>
             <p>Your appointment status has been updated to: <strong>${appointment.status.toUpperCase()}</strong></p>
-            <p>If you have any questions, please call us at (732) 907-8380.</p>
+            <p>If you have any questions, please call us at (732) 676-4855.</p>
             <p>Best regards,<br>Auto Universe Inc.</p>
         `
     };
 
     await transporter.sendMail(emailOptions);
-}
-
-async function createGoogleCalendarEvent(appointment) {
-    const auth = createCalendarAuth();
-    const calendar = google.calendar({ version: 'v3', auth });
-
-    const startDateTime = new Date(`${appointment.preferredDate.toISOString().split('T')[0]}T${appointment.preferredTime}:00`);
-    const endDateTime = new Date(startDateTime.getTime() + (60 * 60 * 1000)); // 1 hour duration
-
-    const event = {
-        summary: `${appointment.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} - ${appointment.firstName} ${appointment.lastName}`,
-        description: `
-            Customer: ${appointment.firstName} ${appointment.lastName}
-            Email: ${appointment.email}
-            Phone: ${appointment.phone}
-            ${appointment.carInterest ? `Car Interest: ${appointment.carInterest}` : ''}
-            ${appointment.notes ? `Notes: ${appointment.notes}` : ''}
-        `,
-        start: {
-            dateTime: startDateTime.toISOString(),
-            timeZone: 'America/New_York'
-        },
-        end: {
-            dateTime: endDateTime.toISOString(),
-            timeZone: 'America/New_York'
-        },
-        attendees: [
-            { email: appointment.email }
-        ]
-    };
-
-    const response = await calendar.events.insert({
-        calendarId: 'primary',
-        resource: event
-    });
-
-    return response.data.id;
-}
-
-async function deleteGoogleCalendarEvent(eventId) {
-    const auth = createCalendarAuth();
-    const calendar = google.calendar({ version: 'v3', auth });
-
-    await calendar.events.delete({
-        calendarId: 'primary',
-        eventId: eventId
-    });
 }
 
 function formatTime(time24) {

@@ -44,10 +44,10 @@
         "postalCode": "07503",
         "addressCountry": "US"
       },
-      "telephone": "(732) 907-8380",
+      "telephone": "(732) 676-4855",
       "url": "https://www.autouniverseinc.com",
       "priceRange": "$$$",
-      "openingHours": "Mo-Sa 09:00-18:00",
+      "openingHours": "Mo-Sa 10:00-19:00",
       "description": "Quality used car dealership in Paterson, NJ offering affordable financing with low down payments and weekly payment options."
     }
     </script>
@@ -78,7 +78,7 @@
                     </ul>
                 </nav>
                 <div class="text-xs sm:text-sm text-gray-200 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
-                    <p>(732) 907-8380</p>
+                    <p>(732) 676-4855</p>
                     <p>828 Main St, Paterson, NJ 07503</p>
                 </div>
             </div>
@@ -101,16 +101,99 @@
                 <p class="text-lg sm:text-xl md:text-2xl font-semibold">We Sell Quality - Auto Universe Inc. in Paterson, NJ</p>
             </div>
         </section>
-        <!-- Google Calendar Appointment Section -->
+        <!-- Custom Appointment Booking Section -->
         <section class="py-12 bg-gray-50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center text-red-600 mb-8">
+                <h2 class="text-4xl font-bold text-center text-black mb-8">
                     Schedule Your Appointment
                 </h2>
                 <div class="max-w-4xl mx-auto">
-                    <!-- Google Calendar Appointment Scheduling begin -->
-                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ22I9AdK-gGXdjrrE3IZgBSR-sqeJI55GExZl2hPxzwMRoH2k7WVPhsGc1iPU9y0LS19sPIgD4x?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
-                    <!-- end Google Calendar Appointment Scheduling -->
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Appointment Request</h3>
+                            <p class="text-gray-600">Book your car viewing, test drive, or financing consultation</p>
+                        </div>
+                        
+                        <form id="homeAppointmentForm" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="homeAppointmentType" class="block text-sm font-medium text-gray-700 mb-2">Appointment Type</label>
+                                    <select id="homeAppointmentType" name="appointmentType" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option value="">Select appointment type</option>
+                                        <option value="car-viewing">Car Viewing</option>
+                                        <option value="test-drive">Test Drive</option>
+                                        <option value="financing">Financing Consultation</option>
+                                        <option value="general">General Inquiry</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="homeCarInterest" class="block text-sm font-medium text-gray-700 mb-2">Specific Car of Interest (Optional)</label>
+                                    <input type="text" id="homeCarInterest" name="carInterest" placeholder="e.g., 2020 Honda Civic" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="homeFirstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                    <input type="text" id="homeFirstName" name="firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                                <div>
+                                    <label for="homeLastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                    <input type="text" id="homeLastName" name="lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="homeEmail" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                    <input type="email" id="homeEmail" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                                <div>
+                                    <label for="homePhone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" id="homePhone" name="phone" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="homePreferredDate" class="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
+                                <input type="date" id="homePreferredDate" name="preferredDate" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>
+
+                            <div>
+                                <label for="homePreferredTime" class="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
+                                <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="10:00">10:00 AM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="11:00">11:00 AM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="12:00">12:00 PM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="13:00">1:00 PM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="14:00">2:00 PM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="15:00">3:00 PM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="16:00">4:00 PM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="17:00">5:00 PM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="18:00">6:00 PM</button>
+                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="19:00">7:00 PM</button>
+                                </div>
+                                <input type="hidden" id="homeSelectedTime" name="preferredTime">
+                            </div>
+
+                            <div>
+                                <label for="homeNotes" class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                                <textarea id="homeNotes" name="notes" rows="3" placeholder="Any specific requirements or questions..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition duration-300 font-semibold">
+                                Request Appointment
+                            </button>
+                        </form>
+
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                            <h4 class="font-semibold text-blue-900 mb-2">Business Hours</h4>
+                            <div class="text-sm text-blue-800">
+                                <p>Monday - Saturday: 10:00 AM - 7:00 PM</p>
+                                <p>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -167,6 +250,14 @@
         </svg>
         TEXT US
     </button>
+
+    <script src="js/appointment-booking.js"></script>
+    <style>
+        .time-slot.selected {
+            background-color: #dc2626;
+            color: white;
+        }
+    </style>
 
 </body>
 </html>

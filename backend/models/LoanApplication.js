@@ -109,24 +109,49 @@ const loanApplicationSchema = new mongoose.Schema({
     required: [true, 'Employment status is required'],
     enum: ['Employed', 'Self-Employed', 'Unemployed', 'Student', 'Retired']
   },
-  currentEmployer: {
+  employerName: {
     type: String,
+    required: [true, 'Employer name is required'],
     trim: true
   },
-  jobTitle: {
+  occupation: {
     type: String,
+    required: [true, 'Job title/occupation is required'],
     trim: true
   },
-  employmentLength: {
+  timeOnJob: {
     type: String,
+    required: [true, 'Time on job is required'],
     trim: true
   },
-  workPhone: {
+  employerAddress: {
+    type: String,
+    required: [true, 'Employer address is required'],
+    trim: true
+  },
+  employerCity: {
+    type: String,
+    required: [true, 'Employer city is required'],
+    trim: true
+  },
+  employerState: {
+    type: String,
+    required: [true, 'Employer state is required'],
+    trim: true
+  },
+  employerZip: {
+    type: String,
+    required: [true, 'Employer ZIP code is required'],
+    trim: true,
+    match: [/^\d{5}(-\d{4})?$/, 'Please enter a valid ZIP code']
+  },
+  businessPhone: {
     type: String,
     trim: true
   },
   monthlyIncome: {
     type: Number,
+    required: [true, 'Monthly income is required'],
     min: [0, 'Income cannot be negative']
   },
   additionalIncome: {
@@ -165,36 +190,6 @@ const loanApplicationSchema = new mongoose.Schema({
     estimatedValue: Number,
     lienInfo: String
   },
-  
-  // Financial Information
-  bankName: {
-    type: String,
-    trim: true
-  },
-  accountType: {
-    type: String,
-    enum: ['Checking', 'Savings', 'Both']
-  },
-  accountLength: {
-    type: String,
-    trim: true
-  },
-  
-  // References
-  references: [{
-    name: {
-      type: String,
-      trim: true
-    },
-    relationship: {
-      type: String,
-      trim: true
-    },
-    phone: {
-      type: String,
-      trim: true
-    }
-  }],
   
   // Application Status
   status: {

@@ -8,11 +8,10 @@ class AppointmentBooking {
     init() {
         this.setupEventListeners();
         this.setMinDate();
-        this.loadGoogleCalendarAPI();
     }
 
     setupEventListeners() {
-        // Time slot selection
+        // Time slot selection for both forms
         const timeSlots = document.querySelectorAll('.time-slot');
         timeSlots.forEach(slot => {
             slot.addEventListener('click', (e) => {
@@ -21,12 +20,21 @@ class AppointmentBooking {
             });
         });
 
-        // Form submission
+        // Main appointment form (appointments.html)
         const form = document.getElementById('appointmentForm');
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                this.handleFormSubmission(e);
+                this.handleFormSubmission(e, 'selectedTime');
+            });
+        }
+
+        // Home page appointment form (index.html)
+        const homeForm = document.getElementById('homeAppointmentForm');
+        if (homeForm) {
+            homeForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleFormSubmission(e, 'homeSelectedTime');
             });
         }
     }
@@ -36,15 +44,33 @@ class AppointmentBooking {
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
         
-        const dateInput = document.getElementById('preferredDate');
-        if (dateInput) {
-            dateInput.min = tomorrow.toISOString().split('T')[0];
-        }
+        // Set minimum date for both forms
+        const dateInputs = ['preferredDate', 'homePreferredDate'];
+        dateInputs.forEach(inputId => {
+            const dateInput = document.getElementById(inputId);
+            if (dateInput) {
+                dateInput.min = tomorrow.toISOString().split('T')[0];
+                
+                // Disable Sundays in date picker
+                dateInput.addEventListener('input', (e) => {
+                    const selectedDate = new Date(e.target.value);
+                    if (selectedDate.getDay() === 0) { // Sunday = 0
+                        this.showErrorMessage('We are closed on Sundays. Please select Monday through Saturday.');
+                        e.target.value = '';
+                    }
+                });
+            }
+        });
     }
 
     selectTimeSlot(selectedSlot) {
-        // Remove selection from all slots
-        document.querySelectorAll('.time-slot').forEach(slot => {
+        // Find the form container this time slot belongs to
+        const form = selectedSlot.closest('form');
+        const isHomeForm = form && form.id === 'homeAppointmentForm';
+        
+        // Remove selection from all slots in the same form
+        const formTimeSlots = form ? form.querySelectorAll('.time-slot') : document.querySelectorAll('.time-slot');
+        formTimeSlots.forEach(slot => {
             slot.classList.remove('selected');
         });
 
@@ -52,19 +78,20 @@ class AppointmentBooking {
         selectedSlot.classList.add('selected');
         this.selectedTime = selectedSlot.getAttribute('data-time');
         
-        // Update hidden input
-        const hiddenInput = document.getElementById('selectedTime');
+        // Update appropriate hidden input
+        const hiddenInputId = isHomeForm ? 'homeSelectedTime' : 'selectedTime';
+        const hiddenInput = document.getElementById(hiddenInputId);
         if (hiddenInput) {
             hiddenInput.value = this.selectedTime;
         }
     }
 
-    async handleFormSubmission(event) {
+    async handleFormSubmission(event, hiddenTimeInputId) {
         const form = event.target;
         const formData = new FormData(form);
         
         // Validate required fields
-        if (!this.validateForm(formData)) {
+        if (!this.validateForm(formData, hiddenTimeInputId)) {
             return;
         }
 
@@ -93,12 +120,9 @@ class AppointmentBooking {
             const response = await this.submitAppointment(appointmentData);
             
             if (response.success) {
-                // Try to create Google Calendar event
-                await this.createGoogleCalendarEvent(appointmentData);
-                
                 this.showSuccessMessage();
                 form.reset();
-                this.clearTimeSelection();
+                this.clearTimeSelection(form);
             } else {
                 throw new Error(response.message || 'Failed to book appointment');
             }
@@ -113,7 +137,7 @@ class AppointmentBooking {
         }
     }
 
-    validateForm(formData) {
+    validateForm(formData, hiddenTimeInputId) {
         const requiredFields = ['appointmentType', 'firstName', 'lastName', 'email', 'phone', 'preferredDate'];
         
         for (const field of requiredFields) {
@@ -144,6 +168,13 @@ class AppointmentBooking {
             return false;
         }
 
+        // Validate date is not Sunday
+        const selectedDate = new Date(formData.get('preferredDate'));
+        if (selectedDate.getDay() === 0) {
+            this.showErrorMessage('We are closed on Sundays. Please select Monday through Saturday.');
+            return false;
+        }
+
         return true;
     }
 
@@ -171,7 +202,7 @@ class AppointmentBooking {
 
     async sendEmailNotification(appointmentData) {
         try {
-            const response = await fetch('/api/send-appointment-email', {
+            const response = await fetch('/api/appointments/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -190,17 +221,22 @@ class AppointmentBooking {
         }
     }
 
-    clearTimeSelection() {
-        document.querySelectorAll('.time-slot').forEach(slot => {
+    clearTimeSelection(form) {
+        const timeSlots = form ? form.querySelectorAll('.time-slot') : document.querySelectorAll('.time-slot');
+        timeSlots.forEach(slot => {
             slot.classList.remove('selected');
         });
         this.selectedTime = null;
-        const hiddenInput = document.getElementById('selectedTime');
-        if (hiddenInput) {
-            hiddenInput.value = '';
-        }
+        
+        // Clear both hidden inputs
+        const hiddenInputs = ['selectedTime', 'homeSelectedTime'];
+        hiddenInputs.forEach(inputId => {
+            const hiddenInput = document.getElementById(inputId);
+            if (hiddenInput) {
+                hiddenInput.value = '';
+            }
+        });
     }
-
     showSuccessMessage() {
         this.showMessage('Appointment request submitted successfully! We will contact you shortly to confirm.', 'success');
     }
@@ -231,89 +267,6 @@ class AppointmentBooking {
                 messageDiv.remove();
             }
         }, 5000);
-    }
-
-    // Google Calendar API Integration
-    loadGoogleCalendarAPI() {
-        // This would be used if you want to integrate with Google Calendar API
-        // You would need to set up Google API credentials
-        if (typeof gapi !== 'undefined') {
-            gapi.load('client:auth2', () => {
-                this.initGoogleCalendar();
-            });
-        }
-    }
-
-    async initGoogleCalendar() {
-        // Initialize Google Calendar API
-        // You would need to replace these with your actual API credentials
-        const API_KEY = 'YOUR_GOOGLE_API_KEY';
-        const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
-        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-        const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
-
-        try {
-            await gapi.client.init({
-                apiKey: API_KEY,
-                clientId: CLIENT_ID,
-                discoveryDocs: [DISCOVERY_DOC],
-                scope: SCOPES
-            });
-        } catch (error) {
-            console.log('Google Calendar API initialization failed:', error);
-        }
-    }
-
-    async createGoogleCalendarEvent(appointmentData) {
-        if (typeof gapi === 'undefined' || !gapi.client.calendar) {
-            console.log('Google Calendar API not available');
-            return;
-        }
-
-        try {
-            const startDateTime = new Date(`${appointmentData.preferredDate}T${appointmentData.preferredTime}:00`);
-            const endDateTime = new Date(startDateTime.getTime() + (60 * 60 * 1000)); // 1 hour duration
-
-            const event = {
-                'summary': `${appointmentData.type} - ${appointmentData.firstName} ${appointmentData.lastName}`,
-                'description': `
-                    Appointment Type: ${appointmentData.type}
-                    Customer: ${appointmentData.firstName} ${appointmentData.lastName}
-                    Email: ${appointmentData.email}
-                    Phone: ${appointmentData.phone}
-                    Car Interest: ${appointmentData.carInterest || 'Not specified'}
-                    Notes: ${appointmentData.notes || 'None'}
-                `,
-                'start': {
-                    'dateTime': startDateTime.toISOString(),
-                    'timeZone': 'America/New_York'
-                },
-                'end': {
-                    'dateTime': endDateTime.toISOString(),
-                    'timeZone': 'America/New_York'
-                },
-                'attendees': [
-                    {'email': appointmentData.email}
-                ],
-                'reminders': {
-                    'useDefault': false,
-                    'overrides': [
-                        {'method': 'email', 'minutes': 24 * 60},
-                        {'method': 'popup', 'minutes': 30}
-                    ]
-                }
-            };
-
-            const request = gapi.client.calendar.events.insert({
-                'calendarId': 'primary',
-                'resource': event
-            });
-
-            await request.execute();
-            console.log('Google Calendar event created successfully');
-        } catch (error) {
-            console.error('Failed to create Google Calendar event:', error);
-        }
     }
 
     // Utility method to format appointment data for display

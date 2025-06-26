@@ -252,7 +252,7 @@ function toggleCarFavorite() {
 }
 
 function contactDealer() {
-    const phone = '(732) 907-8380';
+    const phone = '(732) 676-4855';
     const message = `Hi, I'm interested in the ${currentCar.year} ${currentCar.make} ${currentCar.model} listed for $${currentCar.price.toLocaleString()}. Can you provide more information?`;
     
     // Try to open WhatsApp first, then fall back to phone call
