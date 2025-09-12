@@ -1,10 +1,9 @@
 const express = require('express');
 const { body, validationResult, query } = require('express-validator');
-const fs = require('fs').promises;
-const path = require('path');
 const Car = require('../models/Car');
 const { auth, adminOnly } = require('../middleware/auth');
 const { upload, handleMulterError } = require('../middleware/upload');
+const cloudinary = require('../config/cloudinary');
 
 const router = express.Router();
 
@@ -416,17 +415,12 @@ router.delete('/:id/images/:imageIndex', auth, async (req, res) => {
   try {
     const { id, imageIndex } = req.params;
     const car = await Car.findById(id);
-
     if (!car) {
       return res.status(404).json({
         error: 'Car not found',
         message: 'The requested car does not exist'
       });
     }
-
-    // All authenticated dealers and admins can delete images from any car
-    // No permission restriction based on who added the car
-
     const index = parseInt(imageIndex);
     if (index < 0 || index >= car.images.length) {
       return res.status(400).json({
@@ -434,27 +428,20 @@ router.delete('/:id/images/:imageIndex', auth, async (req, res) => {
         message: 'The specified image does not exist'
       });
     }
-
     const imageToDelete = car.images[index];
-    
-    // Delete physical file
-    const imagePath = path.join(__dirname, '..', imageToDelete.url);
-    try {
-      await fs.unlink(imagePath);
-    } catch (fileError) {
-      console.error('Failed to delete image file:', fileError);
+    // Delete from Cloudinary
+    if (imageToDelete.publicId) {
+      try {
+        await cloudinary.uploader.destroy(imageToDelete.publicId);
+      } catch (cloudError) {
+        console.error('Failed to delete image from Cloudinary:', cloudError);
+      }
     }
-
-    // Remove from array
     car.images.splice(index, 1);
-    
-    // If deleted image was primary and there are other images, make first one primary
     if (imageToDelete.isPrimary && car.images.length > 0) {
       car.images[0].isPrimary = true;
     }
-
     await car.save();
-
     res.json({
       message: 'Image deleted successfully',
       car
@@ -517,29 +504,23 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     const { id } = req.params;
     const car = await Car.findById(id);
-
     if (!car) {
       return res.status(404).json({
         error: 'Car not found',
         message: 'The requested car does not exist'
       });
     }
-
-    // All authenticated dealers and admins can delete any car
-    // No permission restriction based on who added the car
-
-    // Delete associated images
+    // Delete associated images from Cloudinary
     for (const image of car.images) {
-      const imagePath = path.join(__dirname, '..', image.url);
-      try {
-        await fs.unlink(imagePath);
-      } catch (fileError) {
-        console.error('Failed to delete image file:', fileError);
+      if (image.publicId) {
+        try {
+          await cloudinary.uploader.destroy(image.publicId);
+        } catch (cloudError) {
+          console.error('Failed to delete image from Cloudinary:', cloudError);
+        }
       }
     }
-
-    await Car.findByIdAndDelete(id);
-
+    await car.deleteOne();
     res.json({
       message: 'Car deleted successfully'
     });
