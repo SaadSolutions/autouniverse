@@ -615,7 +615,7 @@ function renderCarsTable(cars) {
                         <td class="px-6 py-4">
                             <div class="flex items-center">
                                 ${car.primaryImage ? `
-                                    <img src="${API_BASE_URL.replace('/api', '')}${car.primaryImage.url}" 
+                                    <img src="${car.primaryImage.url}" 
                                          alt="${car.displayName}" 
                                          class="w-12 h-12 rounded-lg object-cover mr-3">
                                 ` : `

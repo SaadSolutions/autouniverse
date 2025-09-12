@@ -27,7 +27,7 @@ async function loadCarsFromAPI() {
                 bodyStyle: car.bodyStyle,
                 fuelType: car.fuelType,
                 imageUrl: car.images && car.images.length > 0 ? 
-                    `${API_BASE_URL.replace('/api', '')}${car.images.find(img => img.isPrimary)?.url || car.images[0].url}` : 
+                    car.images.find(img => img.isPrimary)?.url || car.images[0].url : 
                     `https://placehold.co/600x400/555/FFF?text=${car.make}+${car.model}`,
                 description: car.description || `${car.year} ${car.make} ${car.model}`
             }));

@@ -91,7 +91,7 @@ function displayImages(images) {
     
     // Display primary image or first image
     const primaryImage = images.find(img => img.isPrimary) || images[0];
-    const imageUrl = `${API_BASE_URL.replace('/api', '')}${primaryImage.url}`;
+    const imageUrl = primaryImage.url;
     mainImageElement.src = imageUrl;
     mainImageElement.alt = `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
     
@@ -100,7 +100,7 @@ function displayImages(images) {
     
     // Create thumbnails for all images
     images.forEach((image, index) => {
-        const thumbnailUrl = `${API_BASE_URL.replace('/api', '')}${image.url}`;
+    const thumbnailUrl = image.url;
         const thumbnail = document.createElement('img');
         thumbnail.src = thumbnailUrl;
         thumbnail.alt = `${currentCar.year} ${currentCar.make} ${currentCar.model} - Image ${index + 1}`;
