@@ -1,6 +1,8 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../config/cloudinary'); // Your Cloudinary config
 
 // Ensure upload directory exists
 const uploadDir = 'uploads/cars';
