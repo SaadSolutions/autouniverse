@@ -364,7 +364,7 @@ class LoanApplicationForm {
         console.log('Submitting data:', data);
         
         try {
-            const apiUrl = window.API_CONFIG ? window.API_CONFIG.BASE_URL : 'http://localhost:5000/api';
+            const apiUrl = 'https://autouniverse.onrender.com/api';
             const response = await fetch(`${apiUrl}/forms/loan-application`, {
                 method: 'POST',
                 headers: {

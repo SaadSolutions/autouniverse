@@ -180,7 +180,7 @@ class AppointmentBooking {
 
     async submitAppointment(appointmentData) {
         try {
-            const response = await fetch('/api/appointments', {
+            const response = await fetch('https://autouniverse.onrender.com/api/appointments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ class AppointmentBooking {
 
     async sendEmailNotification(appointmentData) {
         try {
-            const response = await fetch('/api/appointments/send-email', {
+            const response = await fetch('https://autouniverse.onrender.com/api/appointments/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

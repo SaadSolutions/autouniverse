@@ -279,17 +279,17 @@ router.post('/', [auth, upload.array('images', 10), [
       carData.tags = carData.tags.split(',').map(t => t.trim().toLowerCase()).filter(t => t);
     }
 
-    // Handle uploaded images (with error handling for Render)
+    // Handle uploaded images from Cloudinary
     if (req.files && req.files.length > 0) {
       try {
         carData.images = req.files.map((file, index) => ({
-          url: `/uploads/cars/${file.filename}`,
+          url: file.path, // Cloudinary URL
+          publicId: file.filename, // Cloudinary public ID
           isPrimary: index === 0 // First image is primary
         }));
         console.log('Images processed:', carData.images.length);
       } catch (imageError) {
         console.log('Image processing error:', imageError);
-        // Continue without images for now
         carData.images = [];
       }
     } else {
