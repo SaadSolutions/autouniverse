@@ -1,5 +1,6 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = "https://autouniverse.onrender.com/api";
+
 
 // Sample Car Data (fallback if API fails)
 
