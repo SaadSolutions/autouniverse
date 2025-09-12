@@ -1,6 +1,9 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 // Ensure upload directory exists
 const uploadDir = 'uploads/cars';
@@ -9,17 +12,12 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // Storage configuration for local file system
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'cars', // You can change folder name as needed
+    allowed_formats: ['jpg', 'png', 'webp'],
   },
-  filename: function (req, file, cb) {
-    // Generate unique filename: timestamp-randomnumber-originalname
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const extension = path.extname(file.originalname);
-    const basename = path.basename(file.originalname, extension);
-    cb(null, `${basename}-${uniqueSuffix}${extension}`);
-  }
 });
 
 // File filter for images only
@@ -80,6 +78,9 @@ const handleMulterError = (err, req, res, next) => {
 };
 
 module.exports = {
+  upload,
+  handleMulterError
+};
   upload,
   handleMulterError
 };
