@@ -364,7 +364,7 @@ class LoanApplicationForm {
         console.log('Submitting data:', data);
         
         try {
-            const apiUrl = 'https://autouniverse.onrender.com/api';
+            const apiUrl = 'https://autouniverse-1.onrender.com/api';
             const response = await fetch(`${apiUrl}/forms/loan-application`, {
                 method: 'POST',
                 headers: {

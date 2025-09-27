@@ -117,28 +117,57 @@
 </head>
 <body class="bg-gray-900 text-white">
 
-    <header class="bg-black bg-opacity-80 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between py-3">
-                <div class="flex items-center mb-2 md:mb-0">
-                    <a href="#" onclick="showPage('homePageContent')" class="text-2xl sm:text-3xl font-bold text-red-600">Auto <span class="text-white">UNIVERSE INC.</span></a>
-                </div>
-                <nav class="flex-grow md:flex-grow-0">
-                    <ul class="flex flex-wrap justify-center md:justify-end space-x-3 sm:space-x-4 text-sm sm:text-base">
-                        <li><a href="#" onclick="showPage('homePageContent')" class="hover:text-red-500 transition duration-300">Home</a></li>
-                        <li><a href="#" onclick="showPage('inventoryPageContent')" class="hover:text-red-500 transition duration-300">Inventory</a></li>
-                        <li><a href="#" class="hover:text-red-500 transition duration-300">Financing</a></li>
-                        <li><a href="#" class="hover:text-red-500 transition duration-300">Reviews</a></li>
-                        <li><a href="#" class="hover:text-red-500 transition duration-300">About Us</a></li>
-                        <li><a href="#" class="hover:text-red-500 transition duration-300">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="text-xs sm:text-sm text-gray-300 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
-                    <p>908-545-3156 & 908-545-3157</p>
-                    <p>816 Gibbons Ct Elizabeth Nj 07202</p>
-                </div>
+    <header class="site-header">
+        <div class="brand-bar">
+            <div class="header-container brand-bar__content">
+                <a href="#" onclick="showPage('homePageContent'); return false;" class="brand-bar__logo" aria-label="H&M Buy Here Pay Here">
+                    <img src="public/images/H&M logo2.png" alt="H&M Buy Here Pay Here" class="brand-bar__logo-img">
+                </a>
+                <span class="brand-bar__title">H&M Buy Here Pay Here</span>
             </div>
         </div>
+        <div class="contact-strip">
+            <div class="header-container contact-strip__content">
+                <span>816 Gibbons Ct Elizabeth Nj 07202</span>
+                <span class="separator">•</span>
+                <span>support@hmbuyherepayhere.com</span>
+                <span class="separator">•</span>
+                <span>(908) 545-3156 • (908) 545-3157</span>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="header-container nav-bar__inner">
+                <a href="#" onclick="showPage('homePageContent'); return false;" class="nav-brand" aria-label="H&M Buy Here Pay Here">
+                    <img src="public/images/H&M logo2.png" alt="H&M Buy Here Pay Here" class="nav-logo">
+                </a>
+                <nav class="nav-links hidden lg:flex" aria-label="Primary navigation">
+                    <a href="#" onclick="showPage('homePageContent'); return false;" class="nav-link">Home</a>
+                    <a href="#" onclick="showPage('inventoryPageContent'); return false;" class="nav-link">Inventory</a>
+                    <a href="#financing" class="nav-link">Financing</a>
+                    <a href="#reviews" class="nav-link">Reviews</a>
+                    <a href="#about" class="nav-link">About Us</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                <button id="mobile-menu-button" class="mobile-menu-button lg:hidden" aria-expanded="false" aria-controls="mobile-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <nav id="mobile-menu" class="mobile-menu hidden lg:hidden" aria-label="Mobile navigation">
+            <div class="header-container">
+                <ul class="mobile-menu__list">
+                    <li><a href="#" onclick="showPage('homePageContent'); return false;" class="mobile-menu__link">Home</a></li>
+                    <li><a href="#" onclick="showPage('inventoryPageContent'); return false;" class="mobile-menu__link">Inventory</a></li>
+                    <li><a href="#financing" class="mobile-menu__link">Financing</a></li>
+                    <li><a href="#reviews" class="mobile-menu__link">Reviews</a></li>
+                    <li><a href="#about" class="mobile-menu__link">About Us</a></li>
+                    <li><a href="#contact" class="mobile-menu__link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <main id="homePageContent">
@@ -333,9 +362,29 @@
         }
 
 
-        // Initial setup: Show home page by default
+        // Initial setup: Show home page by default and wire up mobile navigation
         document.addEventListener('DOMContentLoaded', () => {
             showPage('homePageContent');
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', (!isHidden).toString());
+                });
+            }
+
+            const mobileLinks = document.querySelectorAll('.mobile-menu__link');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
         });
 
     </script>

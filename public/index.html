@@ -45,10 +45,10 @@
         "addressCountry": "US"
       },
       "telephone": "908-545-3156",
-    "url": "https://www.hmbuyherepayhere.com",
+      "url": "https://www.hmbuyherepayhere.com",
       "priceRange": "$$$",
       "openingHours": "Mo-Sa 10:00-19:00",
-    "description": "Quality used car dealership in Elizabeth, NJ offering affordable financing with low down payments and weekly payment options."
+      "description": "Quality used car dealership in Elizabeth, NJ offering affordable financing with low down payments and weekly payment options."
     }
     </script>
 
@@ -57,182 +57,283 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-white text-gray-900">
-
-    <header class="bg-red-600 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between py-3">
-                <div class="flex items-center mb-2 md:mb-0">
-                    <a href="index.html" class="flex items-center">
-                        <img src="images/H&M logo2.png" alt="Auto Universe Inc." class="h-8 sm:h-10 md:h-12 w-auto">
-                    </a>
-                </div>
-                <nav class="flex-grow md:flex-grow-0">
-                    <ul class="flex flex-wrap justify-center md:justify-end space-x-3 sm:space-x-4 text-sm sm:text-base">
-                        <li><a href="index.html" class="hover:text-gray-200 transition duration-300 text-gray-200 font-semibold">Home</a></li>
-                        <li><a href="inventory.html" class="hover:text-gray-200 transition duration-300 text-white">Inventory</a></li>
-                        <li><a href="form.html" class="hover:text-gray-200 transition duration-300 text-white">Financing</a></li>
-                        <li><a href="appointments.html" class="hover:text-gray-200 transition duration-300 text-white">Appointments</a></li>
-                        <li><a href="articles.html" class="hover:text-gray-200 transition duration-300 text-white">Articles</a></li>
-                        <li><a href="about.html" class="hover:text-gray-200 transition duration-300 text-white">About Us</a></li>
-                        <li><a href="contact.html" class="hover:text-gray-200 transition duration-300 text-white">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="text-xs sm:text-sm text-gray-200 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
-                    <p>908-545-3156 & 908-545-3157</p>
-                    <p>816 Gibbons Ct Elizabeth Nj 07202</p>
-                </div>
+    <header class="site-header">
+        <div class="brand-bar">
+            <div class="header-container brand-bar__content">
+                <a href="index.html" class="brand-bar__logo" aria-label="H&M Buy Here Pay Here">
+                    <img src="images/H&M logo2.png" alt="H&M Buy Here Pay Here" class="brand-bar__logo-img">
+                </a>
+                <span class="brand-bar__title">H&M Buy Here Pay Here</span>
             </div>
         </div>
+        <div class="contact-strip">
+            <div class="header-container contact-strip__content">
+                <span>816 Gibbons Ct Elizabeth Nj 07202</span>
+                <span class="separator">•</span>
+                <span>support@hmbuyherepayhere.com</span>
+                <span class="separator">•</span>
+                <span>(908) 545-3156 • (908) 545-3157</span>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="header-container nav-bar__inner">
+                <a href="index.html" class="nav-brand" aria-label="H&M Buy Here Pay Here">
+                    <img src="images/H&M logo2.png" alt="H&M Buy Here Pay Here" class="nav-logo">
+                </a>
+                <nav class="nav-links hidden lg:flex" aria-label="Primary navigation">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="inventory.html" class="nav-link">Inventory</a>
+                    <a href="form.html" class="nav-link">Financing</a>
+                    <a href="appointments.html" class="nav-link">Appointments</a>
+                    <a href="articles.html" class="nav-link">Articles</a>
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+                <button id="mobile-menu-button" class="mobile-menu-button lg:hidden" aria-expanded="false" aria-controls="mobile-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <nav id="mobile-menu" class="mobile-menu hidden lg:hidden" aria-label="Mobile navigation">
+            <div class="header-container">
+                <ul class="mobile-menu__list">
+                    <li><a href="index.html" class="mobile-menu__link">Home</a></li>
+                    <li><a href="inventory.html" class="mobile-menu__link">Inventory</a></li>
+                    <li><a href="form.html" class="mobile-menu__link">Financing</a></li>
+                    <li><a href="appointments.html" class="mobile-menu__link">Appointments</a></li>
+                    <li><a href="articles.html" class="mobile-menu__link">Articles</a></li>
+                    <li><a href="about.html" class="mobile-menu__link">About Us</a></li>
+                    <li><a href="contact.html" class="mobile-menu__link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <section class="hero-bg h-[calc(100vh-120px)] min-h-[500px] sm:min-h-[600px] md:min-h-[700px] flex items-center justify-end relative text-white">
-            <div class="absolute inset-0 bg-black opacity-50"></div>
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-right mr-0 md:mr-10 lg:mr-20">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-shadow mb-4">Down payments as low as  <span class="text-red-500">$499</span></h1>
-                <p class="text-xl sm:text-2xl md:text-3xl text-shadow mb-8">Payments as low as $75 weekly</p>
-                <a href="inventory.html" class="btn-primary text-white font-semibold py-3 px-8 sm:py-4 sm:px-10 rounded-lg text-lg sm:text-xl hover:bg-red-700 transition duration-300 shadow-lg">
-                    View Inventory
-                </a>
+        <section class="hero hero-bg text-white">
+            <div class="hero__veil"></div>
+            <div class="header-container hero__inner">
+                <div class="hero__grid">
+                    <div class="hero__content">
+                        <p class="hero__eyebrow">FIND YOUR NEXT CAR AT</p>
+                        <h1 class="hero__title">
+                            <span>H&M BUY HERE PAY HERE</span>
+                            <span class="hero__location">IN ELIZABETH, NJ</span>
+                        </h1>
+                        <p class="hero__description">
+                            Everyone at H&M Buy Here Pay Here is ready to make the car shopping and the car buying experience fast, friendly, and easy.
+                        </p>
+                        <div class="hero__cta">
+                            <a href="inventory.html" class="btn-primary">Shop Inventory</a>
+                            <a href="form.html" class="btn-outline">Financing Application</a>
+                        </div>
+                    </div>
+
+                    <div class="hero__feature-card">
+                        <h3 class="hero__feature-heading">Why Choose H&M?</h3>
+                        <div class="hero__feature-divider"></div>
+                        <ul class="hero__feature-list">
+                            <li class="hero__feature-item">
+                                <span class="hero__feature-label">Down payments as low as</span>
+                                <span class="hero__feature-value">$499</span>
+                            </li>
+                            <li class="hero__feature-item">
+                                <span class="hero__feature-label">Weekly payments from</span>
+                                <span class="hero__feature-value">$75</span>
+                            </li>
+                            <li class="hero__feature-item">
+                                <span class="hero__feature-label">Quality vehicles with</span>
+                                <span class="hero__feature-value hero__feature-value--caps">warranty</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
-        <section class="bg-red-700 text-white py-4 sm:py-6 text-center">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <p class="text-lg sm:text-xl md:text-2xl font-semibold">We Sell Quality - H&M in Elizabeth NJ</p>
-            </div>
-        </section>
-        <!-- Custom Appointment Booking Section -->
-        <section class="py-12 bg-gray-50">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center text-black mb-8">
-                    Schedule Your Appointment
-                </h2>
-                <div class="max-w-4xl mx-auto">
-                    <div class="bg-white rounded-lg shadow-lg p-8">
-                        <div class="text-center mb-8">
-                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Appointment Request</h3>
-                            <p class="text-gray-600">Book your car viewing, test drive, or financing consultation</p>
+
+        <section class="section-enhanced py-20 bg-gray-50">
+            <div class="header-container">
+                <div class="modern-card p-8 lg:p-12 max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 uppercase tracking-wider">
+                            Welcome to <span class="text-red-600">H&M</span>
+                        </h2>
+                        <div class="w-20 h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent mx-auto mb-6"></div>
+                    </div>
+                    
+                    <div class="space-y-6 text-gray-700 leading-relaxed">
+                        <p class="text-lg lg:text-xl text-center font-medium text-gray-800">
+                            <span class="text-red-600 font-semibold">Bad credit? No credit? No problem!</span>
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mt-8">
+                            <div class="space-y-4">
+                                <p class="text-base">
+                                    Located in <strong class="text-red-600">Elizabeth, NJ</strong>, we believe that reliable transportation shouldn't be a privilege reserved for the few. Our <strong>Buy Here Pay Here</strong> financing model ensures that we can say "yes" when traditional dealerships say "no."
+                                </p>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <p class="text-base">
+                                    At H&M, we're not just selling cars – we're <strong class="text-gray-900">providing opportunities</strong>, <strong class="text-gray-900">building relationships</strong>, and <strong class="text-gray-900">helping our community move forward</strong>. Your dream car is waiting, and we're here to make it a reality.
+                                </p>
+                            </div>
                         </div>
                         
-                        <form id="homeAppointmentForm" class="space-y-6">
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="homeAppointmentType" class="block text-sm font-medium text-gray-700 mb-2">Appointment Type</label>
-                                    <select id="homeAppointmentType" name="appointmentType" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
-                                        <option value="">Select appointment type</option>
-                                        <option value="car-viewing">Car Viewing</option>
-                                        <option value="test-drive">Test Drive</option>
-                                        <option value="financing">Financing Consultation</option>
-                                        <option value="general">General Inquiry</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="homeCarInterest" class="block text-sm font-medium text-gray-700 mb-2">Specific Car of Interest (Optional)</label>
-                                    <input type="text" id="homeCarInterest" name="carInterest" placeholder="e.g., 2020 Honda Civic" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
-                                </div>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="homeFirstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                                    <input type="text" id="homeFirstName" name="firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
-                                </div>
-                                <div>
-                                    <label for="homeLastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                                    <input type="text" id="homeLastName" name="lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
-                                </div>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="homeEmail" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                                    <input type="email" id="homeEmail" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
-                                </div>
-                                <div>
-                                    <label for="homePhone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                                    <input type="tel" id="homePhone" name="phone" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="homePreferredDate" class="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
-                                <input type="date" id="homePreferredDate" name="preferredDate" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
-                            </div>
-
-                            <div>
-                                <label for="homePreferredTime" class="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
-                                <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="10:00">10:00 AM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="11:00">11:00 AM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="12:00">12:00 PM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="13:00">1:00 PM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="14:00">2:00 PM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="15:00">3:00 PM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="16:00">4:00 PM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="17:00">5:00 PM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="18:00">6:00 PM</button>
-                                    <button type="button" class="time-slot px-3 py-2 border border-gray-300 rounded-md text-center hover:bg-red-600 hover:text-white transition text-sm" data-time="19:00">7:00 PM</button>
-                                </div>
-                                <input type="hidden" id="homeSelectedTime" name="preferredTime">
-                            </div>
-
-                            <div>
-                                <label for="homeNotes" class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
-                                <textarea id="homeNotes" name="notes" rows="3" placeholder="Any specific requirements or questions..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
-                            </div>
-
-                            <button type="submit" class="w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition duration-300 font-semibold">
-                                Request Appointment
-                            </button>
-                        </form>
-
-                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
-                            <h4 class="font-semibold text-blue-900 mb-2">Business Hours</h4>
-                            <div class="text-sm text-blue-800">
-                                <p>Monday - Saturday: 10:00 AM - 7:00 PM</p>
-                                <p>Sunday: Closed</p>
-                            </div>
+                        <div class="bg-gradient-to-r from-red-50 to-gray-50 p-6 rounded-xl mt-8 border-l-4 border-red-600">
+                            <p class="text-base text-gray-800 italic">
+                                Our knowledgeable sales staff will help answer your questions and find the perfect vehicle for you and your family, with financing options that work for your situation.
+                            </p>
+                        </div>
+                        
+                        <div class="text-center mt-8">
+                            <a href="articles.html" class="btn-primary">Find Out More</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Location Map Section -->
-        <section class="bg-gray-50 py-12">
-            <div class="w-full">
-                <h2 class="text-3xl font-bold text-center text-red-600 mb-8 px-4">
-                    <i class="fas fa-map-marker-alt mr-3"></i>
-                    Visit Our Dealership
-                </h2>
-                <div class="w-full h-96 md:h-[960px] shadow-lg">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.0941737159157!2d-74.2088!3d40.6648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24cb60c4d8b6d%3A0x3f8b3b8b3b8b3b8b!2s816%20Gibbons%20Ct%2C%20Elizabeth%2C%20NJ%2007202!5e0!3m2!1sen!2sus!4v1641234567890!5m2!1sen!2sus" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-                <div class="text-center mt-6 px-4">
-                    <p class="text-gray-600 mb-2">
-                        <i class="fas fa-map-marker-alt text-red-600 mr-2"></i>
-                        816 Gibbons Ct Elizabeth Nj 07202
-                    </p>
-                    <p class="text-gray-600">
-                        <i class="fas fa-phone text-red-600 mr-2"></i>
-                        908-545-3156 & 908-545-3157
+        <section class="section-dark">
+            <div class="header-container">
+                <div class="section-heading">
+                    <h2 class="section-title">Schedule Your Appointment</h2>
+                    <div class="accent-divider"></div>
+                    <p class="section-description">
+                        Ready to find your perfect car? Book an appointment with our friendly team today.
                     </p>
                 </div>
+
+                <div class="form-card appointment-card">
+                    <div class="section-subheading">
+                        <h3 class="section-subtitle">Request Your Appointment</h3>
+                        <p class="section-meta">Book your car viewing, test drive, or financing consultation</p>
+                    </div>
+                    
+                    <form id="homeAppointmentForm" class="form-grid">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="homeAppointmentType" class="block text-sm font-medium text-gray-200 mb-2">Appointment Type</label>
+                                <select id="homeAppointmentType" name="appointmentType" required class="form-field">
+                                    <option value="">Select appointment type</option>
+                                    <option value="car-viewing">Car Viewing</option>
+                                    <option value="test-drive">Test Drive</option>
+                                    <option value="financing">Financing Consultation</option>
+                                    <option value="general">General Inquiry</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="homeCarInterest" class="block text-sm font-medium text-gray-200 mb-2">Specific Car of Interest (Optional)</label>
+                                <input type="text" id="homeCarInterest" name="carInterest" placeholder="e.g., 2020 Honda Civic" class="form-field">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="homeFirstName" class="block text-sm font-medium text-gray-200 mb-2">First Name</label>
+                                <input type="text" id="homeFirstName" name="firstName" required class="form-field">
+                            </div>
+                            <div>
+                                <label for="homeLastName" class="block text-sm font-medium text-gray-200 mb-2">Last Name</label>
+                                <input type="text" id="homeLastName" name="lastName" required class="form-field">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="homeEmail" class="block text-sm font-medium text-gray-200 mb-2">Email</label>
+                                <input type="email" id="homeEmail" name="email" required class="form-field">
+                            </div>
+                            <div>
+                                <label for="homePhone" class="block text-sm font-medium text-gray-200 mb-2">Phone Number</label>
+                                <input type="tel" id="homePhone" name="phone" required class="form-field">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="homePreferredDate" class="block text-sm font-medium text-gray-200 mb-2">Preferred Date</label>
+                                <input type="date" id="homePreferredDate" name="preferredDate" required class="form-field">
+                            </div>
+
+                            <div>
+                                <label for="homePreferredTime" class="block text-sm font-medium text-gray-200 mb-2">Preferred Time</label>
+                                <div class="time-slot-grid">
+                                    <button type="button" class="time-slot" data-time="10:00">10:00 AM</button>
+                                    <button type="button" class="time-slot" data-time="11:00">11:00 AM</button>
+                                    <button type="button" class="time-slot" data-time="12:00">12:00 PM</button>
+                                    <button type="button" class="time-slot" data-time="13:00">1:00 PM</button>
+                                    <button type="button" class="time-slot" data-time="14:00">2:00 PM</button>
+                                    <button type="button" class="time-slot" data-time="15:00">3:00 PM</button>
+                                    <button type="button" class="time-slot" data-time="16:00">4:00 PM</button>
+                                    <button type="button" class="time-slot" data-time="17:00">5:00 PM</button>
+                                    <button type="button" class="time-slot" data-time="18:00">6:00 PM</button>
+                                    <button type="button" class="time-slot" data-time="19:00">7:00 PM</button>
+                                </div>
+                                <input type="hidden" id="homeSelectedTime" name="preferredTime">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="homeNotes" class="block text-sm font-medium text-gray-200 mb-2">Additional Notes</label>
+                            <textarea id="homeNotes" name="notes" rows="3" placeholder="Any specific requirements or questions..." class="form-field form-field--textarea"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-primary--wide">
+                            Request Appointment
+                        </button>
+                    </form>
+
+                    <div class="business-hours">
+                        <h4 class="business-hours__title">Business Hours</h4>
+                        <div class="business-hours__content">
+                            <p>Monday - Saturday: 10:00 AM - 7:00 PM</p>
+                            <p>Sunday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-map">
+            <div class="header-container">
+                <div class="section-heading section-heading--light">
+                    <h2 class="section-title section-title--light">
+                        <i class="fas fa-map-marker-alt mr-3"></i>
+                        Visit Our Dealership
+                    </h2>
+                    <div class="accent-divider accent-divider--light"></div>
+                </div>
+            </div>
+            <div class="map-wrapper">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.0941737159157!2d-74.2088!3d40.6648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24cb60c4d8b6d%3A0x3f8b3b8b3b8b3b8b!2s816%20Gibbons%20Ct%2C%20Elizabeth%2C%20NJ%2007202!5e0!3m2!1sen!2sus!4v1641234567890!5m2!1sen!2sus" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div class="map-details">
+                <p class="map-details__item">
+                    <i class="fas fa-map-marker-alt text-red-600 mr-2"></i>
+                    816 Gibbons Ct Elizabeth Nj 07202
+                </p>
+                <p class="map-details__item">
+                    <i class="fas fa-phone text-red-600 mr-2"></i>
+                    908-545-3156 & 908-545-3157
+                </p>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-red-700 text-white py-8 mt-12">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="header-container">
             <div class="flex justify-end items-center">
                 <div class="flex flex-wrap space-x-6 text-sm">
                     <a href="#" class="hover:text-gray-300 transition duration-300">Privacy Policy</a>
@@ -252,12 +353,24 @@
     </button>
 
     <script src="js/appointment-booking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    const isOpen = mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', (!isOpen).toString());
+                });
+            }
+        });
+    </script>
     <style>
         .time-slot.selected {
             background-color: #dc2626;
             color: white;
         }
     </style>
-
 </body>
 </html>

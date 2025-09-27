@@ -3,7 +3,7 @@
 
 class AuthManager {
     constructor() {
-    this.API_BASE_URL = 'https://autouniverse.onrender.com/api';
+    this.API_BASE_URL = 'https://autouniverse-1.onrender.com/api';
         this.accessToken = localStorage.getItem('authToken');
         this.refreshToken = localStorage.getItem('refreshToken');
         this.tokenRefreshTimer = null;

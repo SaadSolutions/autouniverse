@@ -38,34 +38,59 @@
 
 <body class="bg-white text-gray-900">
 
-    <!-- Header -->
-    <header class="bg-red-600 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between py-3">
-                <div class="flex items-center mb-2 md:mb-0">
-                    <a href="index.html" class="flex items-center">
-                        <img src="images/H&M logo2.png" alt="H&M" class="h-16 sm:h-20 md:h-24 w-auto">
-                    </a>
-                </div>
-                <nav class="flex-grow md:flex-grow-0">
-                    <ul
-                        class="flex flex-wrap justify-center md:justify-end space-x-3 sm:space-x-4 text-sm sm:text-base">
-                        <li><a href="index.html" class="hover:text-gray-200 transition duration-300 text-white">Home</a></li>
-                        <li><a href="inventory.html" class="hover:text-gray-200 transition duration-300 text-white">Inventory</a>
-                        </li>
-                        <li><a href="form.html" class="hover:text-gray-200 transition duration-300 text-white">Financing</a></li>
-                        <li><a href="appointments.html" class="hover:text-gray-200 transition duration-300 text-white">Appointments</a></li>
-                        <li><a href="articles.html" class="hover:text-gray-200 transition duration-300 text-white">Articles</a></li>
-                        <li><a href="contact.html" class="hover:text-gray-200 transition duration-300 text-white">About Us</a></li>
-                        <li><a href="about.html" class="text-gray-200 font-semibold">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="text-xs sm:text-sm text-gray-200 mt-2 md:mt-0 md:ml-6 text-center md:text-right">
-                    <p>908-545-3156 & 908-545-3157</p>
-                    <p>816 Gibbons Ct Elizabeth Nj 07202</p>
-                </div>
+    <header class="site-header">
+        <div class="brand-bar">
+            <div class="header-container brand-bar__content">
+                <a href="index.html" class="brand-bar__logo" aria-label="H&M Buy Here Pay Here">
+                    <img src="images/H&M logo2.png" alt="H&M Buy Here Pay Here" class="brand-bar__logo-img">
+                </a>
+                <span class="brand-bar__title">H&M Buy Here Pay Here</span>
             </div>
         </div>
+        <div class="contact-strip">
+            <div class="header-container contact-strip__content">
+                <span>816 Gibbons Ct Elizabeth Nj 07202</span>
+                <span class="separator">•</span>
+                <span>support@hmbuyherepayhere.com</span>
+                <span class="separator">•</span>
+                <span>(908) 545-3156 • (908) 545-3157</span>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="header-container nav-bar__inner">
+                <a href="index.html" class="nav-brand" aria-label="H&M Buy Here Pay Here">
+                    <img src="images/H&M logo2.png" alt="H&M Buy Here Pay Here" class="nav-logo">
+                </a>
+                <nav class="nav-links hidden lg:flex" aria-label="Primary navigation">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="inventory.html" class="nav-link">Inventory</a>
+                    <a href="form.html" class="nav-link">Financing</a>
+                    <a href="appointments.html" class="nav-link">Appointments</a>
+                    <a href="articles.html" class="nav-link">Articles</a>
+                    <a href="about.html" class="nav-link active">About Us</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+                <button id="mobile-menu-button" class="mobile-menu-button lg:hidden" aria-expanded="false" aria-controls="mobile-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <nav id="mobile-menu" class="mobile-menu hidden lg:hidden" aria-label="Mobile navigation">
+            <div class="header-container">
+                <ul class="mobile-menu__list">
+                    <li><a href="index.html" class="mobile-menu__link">Home</a></li>
+                    <li><a href="inventory.html" class="mobile-menu__link">Inventory</a></li>
+                    <li><a href="form.html" class="mobile-menu__link">Financing</a></li>
+                    <li><a href="appointments.html" class="mobile-menu__link">Appointments</a></li>
+                    <li><a href="articles.html" class="mobile-menu__link">Articles</a></li>
+                    <li><a href="about.html" class="mobile-menu__link">About Us</a></li>
+                    <li><a href="contact.html" class="mobile-menu__link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <!-- Main Content -->

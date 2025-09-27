@@ -1,5 +1,5 @@
 // Configuration
-const API_BASE_URL = 'https://autouniverse.onrender.com/api';
+const API_BASE_URL = 'https://autouniverse-1.onrender.com/api';
 
 // Global state
 let currentUser = null;
